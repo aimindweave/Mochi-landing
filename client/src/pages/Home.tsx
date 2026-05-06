@@ -2,9 +2,15 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const IMAGES = {
-  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_front_v2-DVCJxRNmFFws8NKxTdhPzH.png",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_butter-4PerymdWHdtyPeGvjoknWX.png",
   angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_angle_v2-FmM4sM2DrZPHF2QDdxgAtj.png",
   detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_back_v2-bPFgE5DG8LU3PzEyXJV2U8.png",
+  logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_pixel-Gc2gT2ytXbDRFaqFADeBfv.png",
+  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_butter-4PerymdWHdtyPeGvjoknWX.png",
+  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_peach-io9JMTspNgt7rgXtRE67SR.png",
+  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_mint-mHGGAxK6jY7WwagWW2VaxY.png",
+  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_lavender-NHXT6TVCP9V4v6YfyerzNn.png",
+  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_berry-SGAjEkqstLAwG9k3pGdbs4.png",
   uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
@@ -12,6 +18,14 @@ const IMAGES = {
   uiNight: "/manus-storage/ui_night_mode_d37da548.png",
   uiOtto: "/manus-storage/ui_otto_creation_3656c205.png",
 };
+
+const COLORS = [
+  { id: "butter", name: "Butter", hex: "#FFD966", img: "colorButter" as const },
+  { id: "peach", name: "Peach", hex: "#FF8A7A", img: "colorPeach" as const },
+  { id: "mint", name: "Mint", hex: "#7EDCB5", img: "colorMint" as const },
+  { id: "lavender", name: "Lavender", hex: "#B8A9E8", img: "colorLavender" as const },
+  { id: "berry", name: "Berry", hex: "#E85D8A", img: "colorBerry" as const },
+];
 
 function FadeIn({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -29,16 +43,14 @@ function FadeIn({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-function RainbowBar() {
+function PixelLogo({ size = 24 }: { size?: number }) {
   return (
-    <div className="rainbow-bar">
-      <span style={{ background: "#4CAF50" }} />
-      <span style={{ background: "#FFC107" }} />
-      <span style={{ background: "#FF9800" }} />
-      <span style={{ background: "#F44336" }} />
-      <span style={{ background: "#9C27B0" }} />
-      <span style={{ background: "#2196F3" }} />
-    </div>
+    <img
+      src={IMAGES.logo}
+      alt="Mochi logo — pixel capybara"
+      className="inline-block"
+      style={{ width: size, height: size }}
+    />
   );
 }
 
@@ -47,11 +59,11 @@ function Header() {
     <header className="border-b-3 border-foreground">
       <div className="container flex items-center justify-between py-4">
         <div className="flex items-center gap-3">
+          <PixelLogo size={28} />
           <div>
             <span className="font-[var(--font-display)] text-2xl font-900 italic tracking-tight">Mochi</span>
             <span className="text-[0.6rem] align-super font-[var(--font-mono)]">™</span>
           </div>
-          <RainbowBar />
         </div>
         <div className="hidden sm:flex items-center gap-6">
           <span className="editorial-label text-muted-foreground">DOC 001 · v1</span>
@@ -152,6 +164,72 @@ function WhatItIsSection() {
             </div>
           </FadeIn>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ColorPickerSection() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <section className="newspaper-rule">
+      <div className="container py-16 lg:py-24">
+        <FadeIn>
+          <div className="mb-12">
+            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
+              Pick Your Color
+            </p>
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1] mb-4">
+              Five dopamine colors.<br />Choose your vibe.
+            </h2>
+            <p className="text-foreground/60 max-w-lg">
+              Mochi comes in five bold, saturated colorways. Each one is designed to spark joy on your desk.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="grid lg:grid-cols-[1fr_0.35fr] gap-8 items-start">
+            {/* Main product image */}
+            <div className="editorial-border p-4" style={{ backgroundColor: COLORS[active].hex + '15' }}>
+              <img
+                src={IMAGES[COLORS[active].img]}
+                alt={`Mochi in ${COLORS[active].name} colorway`}
+                className="w-full max-w-md mx-auto"
+              />
+              <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
+                <span className="editorial-label text-muted-foreground">Fig. 10 — {COLORS[active].name} Edition</span>
+                <span className="editorial-label" style={{ color: COLORS[active].hex }}>{COLORS[active].hex}</span>
+              </div>
+            </div>
+
+            {/* Color swatches */}
+            <div className="flex lg:flex-col gap-3">
+              {COLORS.map((color, i) => (
+                <button
+                  key={color.id}
+                  onClick={() => setActive(i)}
+                  className={`flex items-center gap-3 p-3 border-2 transition-all w-full ${
+                    active === i
+                      ? "border-foreground"
+                      : "border-foreground/20 hover:border-foreground/50"
+                  }`}
+                >
+                  <div
+                    className="w-8 h-8 shrink-0 rounded-sm"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <div className="text-left">
+                    <p className="font-[var(--font-mono)] text-xs font-bold uppercase">{color.name}</p>
+                    <p className="font-[var(--font-mono)] text-[0.6rem] text-muted-foreground">{color.hex}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -445,7 +523,7 @@ function SignupSection() {
       <div className="container py-16 lg:py-24">
         <FadeIn>
           <div className="editorial-border bg-foreground text-background p-8 sm:p-12 lg:p-16">
-            <RainbowBar />
+            <PixelLogo size={20} />
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-900 leading-[1.1] mt-6 mb-4">
               Be first to meet the crew.
             </h2>
@@ -492,7 +570,7 @@ function Footer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="font-[var(--font-display)] text-lg font-900 italic">Mochi</span>
-            <RainbowBar />
+            <PixelLogo size={20} />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
             <span className="editorial-label text-muted-foreground">A tiny console for AI pets that actually live with you.</span>
@@ -510,6 +588,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <WhatItIsSection />
+      <ColorPickerSection />
       <CrewSection />
       <ScreensSection />
       <MechanicsSection />

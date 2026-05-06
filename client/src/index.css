@@ -167,12 +167,4 @@
   border-top: 1px solid oklch(0.12 0.01 60);
 }
 
-/* Rainbow bar */
-.rainbow-bar {
-  display: flex;
-  height: 6px;
-  width: 80px;
-}
-.rainbow-bar span {
-  flex: 1;
-}
+
