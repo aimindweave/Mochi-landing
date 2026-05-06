@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const IMAGES = {
-  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_butter_v3-aYgBwqLw24Gn94ysCsfdpc.webp",
-  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_mint_v3-gbvNJRhFfr3WTyAgHMMcbq.webp",
-  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_berry_v3-DLoLQ7MdHyztnwqedENtcM.webp",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_oat-WX5BUoWUqYxoS5PNh7rBNr.webp",
+  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_sage-BP28yVcXHz9jYVpgPjHt5d.webp",
+  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_plum-DZX9Dt8QV4iEsDyp7J8odK.webp",
   logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_v2-c3MdjyABhuZhPk2nShaCcb.png",
-  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_butter_v3-aYgBwqLw24Gn94ysCsfdpc.webp",
-  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_peach_v3-nQ6jdjpZ69tJKKSzUW7ByM.webp",
-  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_mint_v3-gbvNJRhFfr3WTyAgHMMcbq.webp",
-  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_lavender_v3-5ZVuhsFyAFjqmVEB3XtCcD.webp",
-  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_berry_v3-DLoLQ7MdHyztnwqedENtcM.webp",
+  colorOat: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_oat-WX5BUoWUqYxoS5PNh7rBNr.webp",
+  colorSage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_sage-BP28yVcXHz9jYVpgPjHt5d.webp",
+  colorBlush: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_blush-SNRRDwTZ8jwV5FGpLUSXJE.webp",
+  colorFog: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_fog-iEXKGA5dnRbenbHE4QLt4C.webp",
+  colorPlum: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_plum-DZX9Dt8QV4iEsDyp7J8odK.webp",
   uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
@@ -23,11 +23,11 @@ const IMAGES = {
 };
 
 const COLORS = [
-  { id: "butter", name: "Butter", hex: "#FFD966", img: "colorButter" as const },
-  { id: "peach", name: "Peach", hex: "#FF8A7A", img: "colorPeach" as const },
-  { id: "mint", name: "Mint", hex: "#7EDCB5", img: "colorMint" as const },
-  { id: "lavender", name: "Lavender", hex: "#B8A9E8", img: "colorLavender" as const },
-  { id: "berry", name: "Berry", hex: "#E85D8A", img: "colorBerry" as const },
+  { id: "oat", name: "Oat", hex: "#C8BDA8", img: "colorOat" as const },
+  { id: "sage", name: "Sage", hex: "#8F9E8A", img: "colorSage" as const },
+  { id: "blush", name: "Blush", hex: "#C4A6A0", img: "colorBlush" as const },
+  { id: "fog", name: "Fog", hex: "#9EAAB4", img: "colorFog" as const },
+  { id: "plum", name: "Plum", hex: "#8A7E96", img: "colorPlum" as const },
 ];
 
 // Simulated waitlist count — starts at 847 and slowly increments
@@ -502,10 +502,10 @@ function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: numb
               Pick Your Color
             </p>
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1] mb-4">
-              Five dopamine colors.<br />Choose your vibe.
+              Five quiet tones.<br />Choose your calm.
             </h2>
             <p className="text-foreground/60 max-w-lg">
-              Mochi comes in five bold, saturated colorways. Each one is designed to spark joy on your desk.
+              Mochi comes in five muted Morandi-inspired colorways. Soft, understated, designed to blend into your space like a well-loved object.
             </p>
           </div>
         </FadeIn>
@@ -801,12 +801,14 @@ function SpecsSection() {
 
               <div className="space-y-0">
                 {[
-                  ["Display", "4\" IPS color, 4:3 aspect"],
-                  ["Size", "~12cm × 10cm × 12cm"],
-                  ["Body", "Matte ABS+PC plastic"],
-                  ["Buttons", "CNC stainless steel"],
+                  ["Display", "5\" IPS color, 4:3 aspect"],
+                  ["Size", "~13cm × 11cm × 12cm"],
+                  ["Body", "Matte ceramic-feel ABS+PC"],
+                  ["Button", "CNC brass/steel, contrasting color"],
+                  ["Speaker", "Built-in mono, pet sound effects"],
+                  ["Breathing Light", "Top-mounted LED indicator"],
                   ["Connectivity", "WiFi + BT + USB-C"],
-                  ["Controls", "OK + D-pad + toggle + kill switch"],
+                  ["Interaction", "Button + App + passive sensing"],
                   ["Sensors", "None (no mic, no camera)"],
                   ["AI", "Frontier (Claude / GPT-class)"],
                   ["Storage", "Local-first with optional cloud"],
