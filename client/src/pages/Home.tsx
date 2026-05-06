@@ -204,6 +204,74 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
   );
 }
 
+function VideoSection() {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <section className="newspaper-rule">
+      <div className="container py-12 lg:py-20">
+        <FadeIn>
+          <div className="editorial-border bg-[#1a1a1a] p-2 sm:p-3 relative group">
+            {/* 16:9 aspect ratio container */}
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              {!playing ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] overflow-hidden">
+                  {/* Decorative pixel grid background */}
+                  <div className="absolute inset-0 opacity-10" style={{
+                    backgroundImage: 'radial-gradient(circle, #FFD966 1px, transparent 1px)',
+                    backgroundSize: '24px 24px'
+                  }} />
+
+                  {/* Play button */}
+                  <button
+                    onClick={() => setPlaying(true)}
+                    className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FFD966] flex items-center justify-center hover:scale-105 transition-transform shadow-2xl mb-6"
+                  >
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#1a1a1a] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </button>
+
+                  {/* Caption */}
+                  <p className="relative z-10 font-[var(--font-display)] text-white text-xl sm:text-2xl font-700 mb-2 text-center px-4">
+                    See Mochi in action
+                  </p>
+                  <p className="relative z-10 font-[var(--font-mono)] text-white/50 text-xs sm:text-sm text-center px-4">
+                    30 seconds · No sound required
+                  </p>
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a]">
+                  {/* Placeholder for actual video — replace src with real video URL */}
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFD966]/20 flex items-center justify-center">
+                      <PixelLogo size={32} />
+                    </div>
+                    <p className="font-[var(--font-display)] text-white text-lg font-700 mb-2">Video coming soon</p>
+                    <p className="font-[var(--font-mono)] text-white/40 text-xs">Concept video in production — check back at launch</p>
+                    <button
+                      onClick={() => setPlaying(false)}
+                      className="mt-6 font-[var(--font-mono)] text-xs text-white/50 border border-white/20 px-4 py-2 hover:text-white hover:border-white/50 transition-colors"
+                    >
+                      ← Back to preview
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Video label bar */}
+            <div className="flex justify-between items-center mt-2 px-1">
+              <span className="editorial-label text-white/40">Concept Video — 0:30</span>
+              <span className="editorial-label text-white/40">Cap · Otto · Spike in their daily life</span>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
 function WhatItIsSection() {
   return (
     <section className="newspaper-rule">
@@ -817,6 +885,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
+      <VideoSection />
       <WhatItIsSection />
       <AIShowcaseSection />
       <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
