@@ -205,8 +205,12 @@ function vitePluginStorageProxy(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
+// Resolve GitHub Pages base from the repo name in GITHUB_REPOSITORY ("owner/repo"),
+// so renaming the repo doesn't require touching this config.
+const githubRepoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'Mochi';
+
 export default defineConfig({
-  base: process.env.GITHUB_PAGES === 'true' ? '/Mochi-landing/' : '/',
+  base: process.env.GITHUB_PAGES === 'true' ? `/${githubRepoName}/` : '/',
   plugins,
   resolve: {
     alias: {
