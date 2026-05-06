@@ -11,12 +11,12 @@ const IMAGES = {
   colorBlush: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_blush-SNRRDwTZ8jwV5FGpLUSXJE.webp",
   colorFog: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_fog-iEXKGA5dnRbenbHE4QLt4C.webp",
   colorPlum: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_plum-DZX9Dt8QV4iEsDyp7J8odK.webp",
-  uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
-  uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
-  uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
-  uiWeekly: "/manus-storage/ui_weekly_letter_4af41b85.png",
-  uiNight: "/manus-storage/ui_night_mode_d37da548.png",
-  uiOtto: "/manus-storage/ui_otto_creation_3656c205.png",
+  uiHome: "/manus-storage/ui_home_screen_99fd299b_ea95f94b.png",
+  uiDaily: "/manus-storage/ui_daily_letter_c29847f5_c2830470.png",
+  uiAsk: "/manus-storage/ui_ask_crew_f946734b_c35e7d11.png",
+  uiWeekly: "/manus-storage/ui_weekly_letter_4af41b85_ed77bbec.png",
+  uiNight: "/manus-storage/ui_night_mode_d37da548_3e72808b.png",
+  uiOtto: "/manus-storage/ui_otto_creation_3656c205_b1e09503.png",
   aiMemory: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_memory-YTYXMJ4ZhZwZGhE7X3ShX4.webp",
   aiCreation: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_creation-BAZwwfWJJgjcK8WHc7H4Kh.webp",
   aiRelationship: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_relationship-CLnxcZzrs9WJMUaMdPXLwe.webp",
@@ -636,9 +636,9 @@ function ScreensSection() {
         </FadeIn>
 
         <FadeIn>
-          <div className="grid lg:grid-cols-[1fr_0.4fr] gap-6">
+          <div className="grid lg:grid-cols-[1fr_0.4fr] gap-6 items-start">
             {/* Main display */}
-            <div className="editorial-border bg-black p-2">
+            <div className="editorial-border bg-black p-2 sticky top-24">
               <img
                 src={screens[active].src}
                 alt={screens[active].label}
@@ -663,7 +663,7 @@ function ScreensSection() {
                       : "border-foreground/20 hover:border-foreground/60"
                   }`}
                 >
-                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1 bg-muted" loading="eager" />
+                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1 bg-[#1a1a1a]" loading="eager" />
                   <span className="editorial-label text-[0.6rem]">{screen.label}</span>
                 </button>
               ))}
