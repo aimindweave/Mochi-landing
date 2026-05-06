@@ -204,69 +204,82 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
   );
 }
 
-function VideoSection() {
-  const [playing, setPlaying] = useState(false);
+const INTERNALS = [
+  { id: 1, label: "Outer Shell / Housing", desc: "Retro monitor shape, matte ceramic finish in your chosen color", icon: "🏠" },
+  { id: 2, label: "4-inch IPS Display", desc: "Crisp pixel art UI, 480×800 resolution, wide viewing angles", icon: "🖥️" },
+  { id: 3, label: "Speaker Module", desc: "2W full-range driver for clear, friendly ambient sounds", icon: "🔊" },
+  { id: 4, label: "AI Compute Board", desc: "On-device NPU for local inference — your pets think privately", icon: "🧠" },
+  { id: 5, label: "Local NVMe Storage", desc: "128GB for models, memories, and pet data — all yours", icon: "💾" },
+  { id: 6, label: "Passive Heatsink", desc: "Copper fins for silent, fanless cooling — zero noise", icon: "🌡️" },
+  { id: 7, label: "Base Dock / Mini PC Bay", desc: "Modular dock to house compute module and I/O ports", icon: "⚡" },
+];
+
+function InternalStructureSection() {
+  const [activeLayer, setActiveLayer] = useState<number | null>(null);
 
   return (
     <section className="newspaper-rule">
       <div className="container py-12 lg:py-20">
         <FadeIn>
-          <div className="editorial-border bg-[#1a1a1a] p-2 sm:p-3 relative group">
-            {/* 16:9 aspect ratio container */}
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              {!playing ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden">
-                  {/* Pixel art GIF as background thumbnail */}
-                  <img
-                    src="/manus-storage/mochi_pixel_preview_v2_330744fe.gif"
-                    alt="Mochi pixel art preview — Cap reading, Otto painting, Spike walking"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  {/* Dark overlay for contrast */}
-                  <div className="absolute inset-0 bg-black/30" />
-
-                  {/* Play button */}
-                  <button
-                    onClick={() => setPlaying(true)}
-                    className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FFD966] flex items-center justify-center hover:scale-105 transition-transform shadow-2xl mb-6"
-                  >
-                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#1a1a1a] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </button>
-
-                  {/* Caption */}
-                  <p className="relative z-10 font-[var(--font-display)] text-white text-xl sm:text-2xl font-700 mb-2 text-center px-4 drop-shadow-lg">
-                    See Mochi in action
-                  </p>
-                  <p className="relative z-10 font-[var(--font-mono)] text-white/70 text-xs sm:text-sm text-center px-4 drop-shadow">
-                    30 seconds · No sound required
-                  </p>
-                </div>
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#1a1a1a]">
-                  {/* Placeholder for actual video — replace src with real video URL */}
-                  <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFD966]/20 flex items-center justify-center">
-                      <PixelLogo size={32} />
-                    </div>
-                    <p className="font-[var(--font-display)] text-white text-lg font-700 mb-2">Video coming soon</p>
-                    <p className="font-[var(--font-mono)] text-white/40 text-xs">Concept video in production — check back at launch</p>
-                    <button
-                      onClick={() => setPlaying(false)}
-                      className="mt-6 font-[var(--font-mono)] text-xs text-white/50 border border-white/20 px-4 py-2 hover:text-white hover:border-white/50 transition-colors"
-                    >
-                      ← Back to preview
-                    </button>
-                  </div>
-                </div>
-              )}
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-start">
+            {/* Left: Exploded view image */}
+            <div className="editorial-border bg-white p-3 sm:p-4">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_exploded_view-3EiqwH89HrxbUFCWALVMtH.webp"
+                alt="Mochi internal structure exploded view — 7 layers from shell to base dock"
+                className="w-full"
+              />
+              <div className="flex justify-between items-center mt-2 pt-2 border-t border-foreground/20">
+                <span className="editorial-label text-muted-foreground">Fig. 02 — Internal Architecture</span>
+                <span className="editorial-label text-muted-foreground">7 Layers · Zero Fan Noise</span>
+              </div>
             </div>
 
-            {/* Video label bar */}
-            <div className="flex justify-between items-center mt-2 px-1">
-              <span className="editorial-label text-white/40">Concept Video — 0:30</span>
-              <span className="editorial-label text-white/40">Cap · Otto · Spike in their daily life</span>
+            {/* Right: Interactive layer list */}
+            <div>
+              <div className="editorial-border gold-block p-5 sm:p-8 mb-6">
+                <p className="editorial-label text-foreground/60 mb-3">— Inside / What Makes It Tick —</p>
+                <h2 className="font-[var(--font-display)] text-2xl sm:text-3xl font-900 leading-tight">
+                  Not a toy.<br />A <em className="text-[oklch(0.45_0.2_25)]">real computer</em>.
+                </h2>
+                <p className="text-sm sm:text-base text-foreground/70 mt-3 leading-relaxed">
+                  Every Mochi houses a full AI compute stack — NPU, local storage, passive cooling. Your pets think on-device. No cloud required for daily life.
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                {INTERNALS.map((layer) => (
+                  <button
+                    key={layer.id}
+                    onMouseEnter={() => setActiveLayer(layer.id)}
+                    onMouseLeave={() => setActiveLayer(null)}
+                    onClick={() => setActiveLayer(activeLayer === layer.id ? null : layer.id)}
+                    className={`w-full text-left editorial-border p-3 sm:p-4 transition-all duration-200 ${
+                      activeLayer === layer.id
+                        ? "bg-[#FFD966]/30 border-foreground"
+                        : "bg-card hover:bg-[#FFD966]/10"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-lg sm:text-xl">{layer.icon}</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-[var(--font-mono)] text-[0.6rem] text-foreground/40">{String(layer.id).padStart(2, '0')}</span>
+                          <span className="font-[var(--font-display)] text-sm sm:text-base font-700">{layer.label}</span>
+                        </div>
+                        <motion.div
+                          initial={false}
+                          animate={{ height: activeLayer === layer.id ? 'auto' : 0, opacity: activeLayer === layer.id ? 1 : 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="text-xs sm:text-sm text-foreground/60 mt-1 leading-relaxed">{layer.desc}</p>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </FadeIn>
@@ -981,7 +994,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
-      <VideoSection />
+      <InternalStructureSection />
       <WhatItIsSection />
       <AIShowcaseSection />
       <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
