@@ -280,7 +280,7 @@ function ExperienceSection() {
               className={`shrink-0 editorial-border px-3 sm:px-4 py-2 transition-all duration-200 ${
                 activeMoment === i
                   ? "bg-foreground text-background"
-                  : "bg-card hover:bg-[#FFD966]/20"
+                  : "bg-card hover:bg-secondary/40"
               }`}
             >
               <span className="font-[var(--font-mono)] text-[0.6rem] sm:text-xs font-bold">{moment.time}</span>
@@ -377,7 +377,7 @@ function WhatItIsSection() {
                 A physical AI companion. Not an app. Not a service. A <em>thing.</em>
               </h2>
               <p className="text-lg text-foreground/70 leading-relaxed mb-8">
-                Mochi is a palm-sized desktop console with a 4-inch pixel screen. Inside lives a tiny world with three AI characters who have personalities, create things, remember you, and develop relationships with each other over time.
+                Mochi is a palm-sized desktop console with a 5-inch color screen. Inside lives a tiny world with three AI characters who have personalities, create things, remember you, and develop relationships with each other over time.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -491,76 +491,7 @@ function AIShowcaseSection() {
   );
 }
 
-function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
-  return (
-    <section className="newspaper-rule">
-      <div className="container py-16 lg:py-24">
-        <FadeIn>
-          <div className="mb-12">
-            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
-              Pick Your Color
-            </p>
-            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1] mb-4">
-              Five quiet tones.<br />Choose your calm.
-            </h2>
-            <p className="text-foreground/60 max-w-lg">
-              Mochi comes in five muted Morandi-inspired colorways. Soft, understated, designed to blend into your space like a well-loved object.
-            </p>
-          </div>
-        </FadeIn>
 
-        <FadeIn delay={0.1}>
-          <div className="grid lg:grid-cols-[1fr_0.35fr] gap-8 items-start">
-            {/* Main product image */}
-            <div className="editorial-border p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '15' }}>
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeColor}
-                  src={IMAGES[COLORS[activeColor].img]}
-                  alt={`Mochi in ${COLORS[activeColor].name} colorway`}
-                  className="w-full max-w-md mx-auto"
-                  initial={{ opacity: 0.6 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0.6 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </AnimatePresence>
-              <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
-                <span className="editorial-label text-muted-foreground">Fig. 10 — {COLORS[activeColor].name} Edition</span>
-                <span className="editorial-label" style={{ color: COLORS[activeColor].hex }}>{COLORS[activeColor].hex}</span>
-              </div>
-            </div>
-
-            {/* Color swatches */}
-            <div className="flex lg:flex-col gap-3">
-              {COLORS.map((color, i) => (
-                <button
-                  key={color.id}
-                  onClick={() => setActiveColor(i)}
-                  className={`flex items-center gap-3 p-3 border-2 transition-all w-full ${
-                    activeColor === i
-                      ? "border-foreground"
-                      : "border-foreground/20 hover:border-foreground/50"
-                  }`}
-                >
-                  <div
-                    className="w-8 h-8 shrink-0 rounded-sm"
-                    style={{ backgroundColor: color.hex }}
-                  />
-                  <div className="text-left">
-                    <p className="font-[var(--font-mono)] text-xs font-bold uppercase">{color.name}</p>
-                    <p className="font-[var(--font-mono)] text-[0.6rem] text-muted-foreground">{color.hex}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
 
 function CrewSection() {
   const pets = [
@@ -712,6 +643,7 @@ function ScreensSection() {
                 src={screens[active].src}
                 alt={screens[active].label}
                 className="w-full aspect-[4/3] object-cover"
+                loading="eager"
               />
               <div className="flex justify-between items-center mt-2 px-1">
                 <span className="editorial-label text-muted-foreground">Fig. {screens[active].fig}</span>
@@ -731,7 +663,7 @@ function ScreensSection() {
                       : "border-foreground/20 hover:border-foreground/60"
                   }`}
                 >
-                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1" />
+                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1 bg-muted" loading="eager" />
                   <span className="editorial-label text-[0.6rem]">{screen.label}</span>
                 </button>
               ))}
@@ -1020,7 +952,7 @@ function SignupSection() {
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-[#FFD966] text-foreground font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
+                  className="px-8 py-4 bg-[#C8BDA8] text-foreground font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
                 >
                   Claim My Spot →
                 </button>
@@ -1069,7 +1001,6 @@ export default function Home() {
       <ExperienceSection />
       <WhatItIsSection />
       <AIShowcaseSection />
-      <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
       <CrewSection />
       <ScreensSection />
       <TrustSection />
