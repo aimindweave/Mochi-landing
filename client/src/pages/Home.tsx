@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const IMAGES = {
-  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_butter-4PerymdWHdtyPeGvjoknWX.png",
-  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_angle_v2-FmM4sM2DrZPHF2QDdxgAtj.png",
-  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_back_v2-bPFgE5DG8LU3PzEyXJV2U8.png",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_butter-7TodimcSreFj8jW4omWMqD.webp",
+  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_mint-kHRK6UszFzx8oERJQ6vUMp.webp",
+  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_berry-dCG2F9sLopqPo3DHd7mwRH.webp",
   logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_pixel-Gc2gT2ytXbDRFaqFADeBfv.png",
-  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_butter-4PerymdWHdtyPeGvjoknWX.png",
-  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_peach-io9JMTspNgt7rgXtRE67SR.png",
-  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_mint-mHGGAxK6jY7WwagWW2VaxY.png",
-  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_lavender-NHXT6TVCP9V4v6YfyerzNn.png",
-  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_berry-SGAjEkqstLAwG9k3pGdbs4.png",
+  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_butter-7TodimcSreFj8jW4omWMqD.webp",
+  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_peach-dXbEwQqNcGw2fPaUxHjT6G.webp",
+  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_mint-kHRK6UszFzx8oERJQ6vUMp.webp",
+  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_lavender-ELk6WxHpGw4jFsTGerNx6M.webp",
+  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_berry-dCG2F9sLopqPo3DHd7mwRH.webp",
   uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
