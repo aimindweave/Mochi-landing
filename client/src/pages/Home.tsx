@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const IMAGES = {
-  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_butter-7TodimcSreFj8jW4omWMqD.webp",
-  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_mint-kHRK6UszFzx8oERJQ6vUMp.webp",
-  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_berry-dCG2F9sLopqPo3DHd7mwRH.webp",
-  logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_pixel-Gc2gT2ytXbDRFaqFADeBfv.png",
-  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_butter-7TodimcSreFj8jW4omWMqD.webp",
-  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_peach-dXbEwQqNcGw2fPaUxHjT6G.webp",
-  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_mint-kHRK6UszFzx8oERJQ6vUMp.webp",
-  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_lavender-ELk6WxHpGw4jFsTGerNx6M.webp",
-  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_premium_berry-dCG2F9sLopqPo3DHd7mwRH.webp",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_butter_v3-aYgBwqLw24Gn94ysCsfdpc.webp",
+  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_mint_v3-gbvNJRhFfr3WTyAgHMMcbq.webp",
+  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_berry_v3-DLoLQ7MdHyztnwqedENtcM.webp",
+  logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_v2-c3MdjyABhuZhPk2nShaCcb.png",
+  colorButter: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_butter_v3-aYgBwqLw24Gn94ysCsfdpc.webp",
+  colorPeach: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_peach_v3-nQ6jdjpZ69tJKKSzUW7ByM.webp",
+  colorMint: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_mint_v3-gbvNJRhFfr3WTyAgHMMcbq.webp",
+  colorLavender: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_lavender_v3-5ZVuhsFyAFjqmVEB3XtCcD.webp",
+  colorBerry: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_berry_v3-DLoLQ7MdHyztnwqedENtcM.webp",
   uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
@@ -564,19 +564,46 @@ function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: numb
 
 function CrewSection() {
   const pets = [
-    { name: "Cap", species: "Capybara", desc: "Slow, thoughtful, gives the kind of advice you wish your therapist would give.", traits: "Warm · Patient · Philosophical" },
-    { name: "Otto", species: "Fox", desc: "Curious, always making things — sketches, poems, small experiments.", traits: "Creative · Eccentric · Generative" },
-    { name: "Spike", species: "Hedgehog", desc: "Sharp tongue, soft heart. Says the thing nobody else will.", traits: "Deadpan · Sarcastic · Insightful" },
+    {
+      name: "Cap",
+      species: "Capybara",
+      role: "The Warm Observer",
+      desc: "Slow, thoughtful, gives the kind of advice you wish your therapist would give. Remembers everything — your mom's birthday, your running streak, the thing you said last Tuesday.",
+      quote: '"You seem quieter today. That\'s okay. I\'m here."',
+      traits: ["Warm", "Patient", "Philosophical"],
+      avatar: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/avatar_cap-5Znr9B9WbhUu3vr63hm4BR.webp",
+      bgColor: "#F5E6C8",
+    },
+    {
+      name: "Otto",
+      species: "Octopus",
+      role: "The Dreamy Artist",
+      desc: "Lives in a world of color and wonder. Paints tiny pixel masterpieces, writes haiku at 3am, and leaves surprise drawings in your gallery.",
+      quote: '"I painted the sunset for you. It looked like your favorite song sounds."',
+      traits: ["Creative", "Ethereal", "Generative"],
+      avatar: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/avatar_otto-DWvoLyTGKNBk7UkjF5AsMr.webp",
+      bgColor: "#E0E8F8",
+    },
+    {
+      name: "Spike",
+      species: "Hedgehog",
+      role: "The Sharp Tongue",
+      desc: "Says the thing nobody else will. Brutally honest, secretly caring. Will roast your procrastination but also celebrate your wins harder than anyone.",
+      quote: '"You\'ve been staring at that screen for 3 hours. Go outside. I\'m not asking."',
+      traits: ["Deadpan", "Sarcastic", "Insightful"],
+      avatar: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/avatar_spike-nx9LjHQyQt8QuSyCYFJCja.webp",
+      bgColor: "#D8DDD0",
+    },
   ];
 
   return (
-    <section className="newspaper-rule">
+    <section className="newspaper-rule" id="crew">
       <div className="container py-16 lg:py-24">
         <FadeIn>
           <div className="mb-12">
             <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
-              The Crew
+              Meet the Crew
             </p>
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1]">
               Three personalities.<br />One tiny world.
@@ -586,22 +613,60 @@ function CrewSection() {
 
         <div className="grid md:grid-cols-3 gap-0">
           {pets.map((pet, i) => (
-            <FadeIn key={pet.name} delay={i * 0.1}>
-              <div className={`editorial-border p-6 sm:p-8 ${i > 0 ? "md:border-l-0" : ""}`}>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="font-[var(--font-display)] text-2xl font-900">{pet.name}</span>
-                  <span className="editorial-label text-muted-foreground">/ {pet.species}</span>
+            <FadeIn key={pet.name} delay={i * 0.12}>
+              <div className={`editorial-border p-0 overflow-hidden ${i > 0 ? "md:border-l-0" : ""}`}>
+                {/* Avatar */}
+                <div className="relative" style={{ backgroundColor: pet.bgColor }}>
+                  <img
+                    src={pet.avatar}
+                    alt={`${pet.name} the ${pet.species} — pixel art portrait`}
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider bg-background/90 px-2 py-1 border border-foreground/20">
+                      0{i + 1}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-foreground/80 leading-relaxed mb-6">{pet.desc}</p>
-                <p className="editorial-label text-muted-foreground border-t-2 border-foreground pt-3">{pet.traits}</p>
+
+                {/* Info */}
+                <div className="p-5 sm:p-6">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="font-[var(--font-display)] text-2xl font-900">{pet.name}</span>
+                    <span className="editorial-label text-muted-foreground">/ {pet.species}</span>
+                  </div>
+                  <p className="font-[var(--font-mono)] text-[0.65rem] uppercase tracking-wider text-[oklch(0.45_0.2_25)] mb-3">
+                    {pet.role}
+                  </p>
+                  <p className="text-foreground/80 text-sm leading-relaxed mb-4">{pet.desc}</p>
+
+                  {/* Quote */}
+                  <div className="border-l-3 border-foreground/30 pl-3 mb-4">
+                    <p className="text-foreground/60 text-xs italic font-[var(--font-display)]">
+                      {pet.quote}
+                    </p>
+                  </div>
+
+                  {/* Traits */}
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-foreground">
+                    {pet.traits.map((trait) => (
+                      <span
+                        key={trait}
+                        className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider px-2 py-0.5 border border-foreground/30 text-foreground/70"
+                      >
+                        {trait}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        <FadeIn delay={0.3}>
+        <FadeIn delay={0.35}>
           <p className="mt-8 text-sm text-muted-foreground max-w-lg font-[var(--font-mono)]">
-            * Each pet's personality is randomly generated per-unit. Two buyers will get a Cap with different traits, drift, and quirks.
+            * Each pet develops a unique personality drift over time. Two buyers will get a Cap with different quirks, memories, and evolving traits.
           </p>
         </FadeIn>
       </div>
