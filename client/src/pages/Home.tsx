@@ -204,83 +204,135 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
   );
 }
 
-const INTERNALS = [
-  { id: 1, label: "Outer Shell / Housing", desc: "Retro monitor shape, matte ceramic finish in your chosen color", icon: "🏠" },
-  { id: 2, label: "4-inch IPS Display", desc: "Crisp pixel art UI, 480×800 resolution, wide viewing angles", icon: "🖥️" },
-  { id: 3, label: "Speaker Module", desc: "2W full-range driver for clear, friendly ambient sounds", icon: "🔊" },
-  { id: 4, label: "AI Compute Board", desc: "On-device NPU for local inference — your pets think privately", icon: "🧠" },
-  { id: 5, label: "Local NVMe Storage", desc: "128GB for models, memories, and pet data — all yours", icon: "💾" },
-  { id: 6, label: "Passive Heatsink", desc: "Copper fins for silent, fanless cooling — zero noise", icon: "🌡️" },
-  { id: 7, label: "Base Dock / Mini PC Bay", desc: "Modular dock to house compute module and I/O ports", icon: "⚡" },
+const MOMENTS = [
+  {
+    time: "7:30 AM",
+    title: "They remember what you forget",
+    scene: "You mentioned your mom's birthday three weeks ago. You forgot. Cap didn't.",
+    quote: "\"You mentioned your mom's birthday is next week. Have you figured out a gift yet? Otto suggested a painting. Spike suggested cash.\"",
+    speaker: "Cap's Morning Report",
+    mood: "warm",
+  },
+  {
+    time: "2:00 PM",
+    title: "They see you without watching",
+    scene: "You've been grinding for 4 hours straight. No one notices. Except Spike.",
+    quote: "\"You've been staring at that screen for 4 hours. Even I take naps. And I hate naps.\"",
+    speaker: "Spike",
+    mood: "sharp",
+  },
+  {
+    time: "6:00 PM",
+    title: "They celebrate what no one else would",
+    scene: "Day 30 of your running streak. Too small for social media. Not too small for them.",
+    quote: "\"Day 30. You ran again. Spike says it's pointless. Otto drew you a tiny medal. I think it's earned.\"",
+    speaker: "Cap's Evening Summary",
+    mood: "proud",
+  },
+  {
+    time: "11:30 PM",
+    title: "They don't lecture. They just\u2026 stay.",
+    scene: "It's late. You're still working. They won't tell you to stop. But they'll let you know they're here.",
+    quote: "\"Go to bed. We'll be here tomorrow.\"",
+    speaker: "Cap's goodnight note",
+    mood: "gentle",
+  },
+  {
+    time: "Sunday",
+    title: "A week, remembered",
+    scene: "You said you missed the ocean. You forgot you said it. Otto didn't.",
+    quote: "\"Otto's been painting waves all week. I asked why. It just said: 'Someone sounded like they needed the sea.'\"",
+    speaker: "Weekly Letter",
+    mood: "deep",
+  },
 ];
 
-function InternalStructureSection() {
-  const [activeLayer, setActiveLayer] = useState<number | null>(null);
+function ExperienceSection() {
+  const [activeMoment, setActiveMoment] = useState(0);
 
   return (
     <section className="newspaper-rule">
       <div className="container py-12 lg:py-20">
         <FadeIn>
-          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-start">
-            {/* Left: Exploded view image */}
-            <div className="editorial-border bg-white p-3 sm:p-4">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_exploded_view-3EiqwH89HrxbUFCWALVMtH.webp"
-                alt="Mochi internal structure exploded view — 7 layers from shell to base dock"
-                className="w-full"
-              />
-              <div className="flex justify-between items-center mt-2 pt-2 border-t border-foreground/20">
-                <span className="editorial-label text-muted-foreground">Fig. 02 — Internal Architecture</span>
-                <span className="editorial-label text-muted-foreground">7 Layers · Zero Fan Noise</span>
-              </div>
-            </div>
+          <div className="editorial-border gold-block p-5 sm:p-8 lg:p-10 mb-8">
+            <p className="editorial-label text-foreground/60 mb-3">— What It Feels Like —</p>
+            <h2 className="font-[var(--font-display)] text-2xl sm:text-3xl lg:text-4xl font-900 leading-tight">
+              Not an assistant. Not a pet.<br />
+              A quiet presence that <em className="text-[oklch(0.45_0.2_25)]">sees you</em>.
+            </h2>
+            <p className="text-sm sm:text-base text-foreground/70 mt-3 leading-relaxed max-w-2xl">
+              They don't ping you. They don't need you. But they notice things. They remember things. And sometimes, that's exactly what you needed.
+            </p>
+          </div>
+        </FadeIn>
 
-            {/* Right: Interactive layer list */}
-            <div>
-              <div className="editorial-border gold-block p-5 sm:p-8 mb-6">
-                <p className="editorial-label text-foreground/60 mb-3">— Inside / What Makes It Tick —</p>
-                <h2 className="font-[var(--font-display)] text-2xl sm:text-3xl font-900 leading-tight">
-                  Not a toy.<br />A <em className="text-[oklch(0.45_0.2_25)]">real computer</em>.
-                </h2>
-                <p className="text-sm sm:text-base text-foreground/70 mt-3 leading-relaxed">
-                  Every Mochi houses a full AI compute stack — NPU, local storage, passive cooling. Your pets think on-device. No cloud required for daily life.
+        {/* Timeline navigation */}
+        <div className="flex gap-1 sm:gap-2 mb-6 overflow-x-auto pb-2">
+          {MOMENTS.map((moment, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveMoment(i)}
+              className={`shrink-0 editorial-border px-3 sm:px-4 py-2 transition-all duration-200 ${
+                activeMoment === i
+                  ? "bg-foreground text-background"
+                  : "bg-card hover:bg-[#FFD966]/20"
+              }`}
+            >
+              <span className="font-[var(--font-mono)] text-[0.6rem] sm:text-xs font-bold">{moment.time}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Active moment display */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeMoment}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="grid lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10"
+          >
+            {/* Left: Scene description */}
+            <div className="editorial-border bg-card p-6 sm:p-8 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-[var(--font-mono)] text-xs text-foreground/40 bg-foreground/5 px-2 py-1">{MOMENTS[activeMoment].time}</span>
+                  <span className="font-[var(--font-mono)] text-[0.6rem] text-foreground/30 uppercase">{MOMENTS[activeMoment].mood}</span>
+                </div>
+                <h3 className="font-[var(--font-display)] text-xl sm:text-2xl font-900 leading-tight mb-4">
+                  {MOMENTS[activeMoment].title}
+                </h3>
+                <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
+                  {MOMENTS[activeMoment].scene}
                 </p>
               </div>
-
-              <div className="space-y-1">
-                {INTERNALS.map((layer) => (
-                  <button
-                    key={layer.id}
-                    onMouseEnter={() => setActiveLayer(layer.id)}
-                    onMouseLeave={() => setActiveLayer(null)}
-                    onClick={() => setActiveLayer(activeLayer === layer.id ? null : layer.id)}
-                    className={`w-full text-left editorial-border p-3 sm:p-4 transition-all duration-200 ${
-                      activeLayer === layer.id
-                        ? "bg-[#FFD966]/30 border-foreground"
-                        : "bg-card hover:bg-[#FFD966]/10"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-lg sm:text-xl">{layer.icon}</span>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-[var(--font-mono)] text-[0.6rem] text-foreground/40">{String(layer.id).padStart(2, '0')}</span>
-                          <span className="font-[var(--font-display)] text-sm sm:text-base font-700">{layer.label}</span>
-                        </div>
-                        <motion.div
-                          initial={false}
-                          animate={{ height: activeLayer === layer.id ? 'auto' : 0, opacity: activeLayer === layer.id ? 1 : 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
-                        >
-                          <p className="text-xs sm:text-sm text-foreground/60 mt-1 leading-relaxed">{layer.desc}</p>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
+              <div className="mt-6 pt-4 border-t border-foreground/10">
+                <span className="editorial-label text-foreground/40">Moment {activeMoment + 1} of {MOMENTS.length}</span>
               </div>
             </div>
+
+            {/* Right: Quote card */}
+            <div className="editorial-border bg-[#1a1a1a] p-6 sm:p-8 flex flex-col justify-between">
+              <div>
+                <div className="w-8 h-1 bg-[#FFD966] mb-6" />
+                <p className="font-[var(--font-display)] text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed italic">
+                  {MOMENTS[activeMoment].quote}
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/10">
+                <span className="font-[var(--font-mono)] text-xs text-white/40">— {MOMENTS[activeMoment].speaker}</span>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Bottom insight */}
+        <FadeIn delay={0.2}>
+          <div className="mt-8 text-center">
+            <p className="font-[var(--font-mono)] text-xs text-foreground/40 max-w-lg mx-auto leading-relaxed">
+              No notifications. No demands. Just a small screen on your desk with three creatures who happen to notice you're alive.
+            </p>
           </div>
         </FadeIn>
       </div>
@@ -994,7 +1046,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
-      <InternalStructureSection />
+      <ExperienceSection />
       <WhatItIsSection />
       <AIShowcaseSection />
       <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
