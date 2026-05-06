@@ -84,7 +84,7 @@ function Header() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ activeColor }: { activeColor: number }) {
   return (
     <section className="py-16 lg:py-24">
       <div className="container">
@@ -102,17 +102,17 @@ function HeroSection() {
             </div>
           </FadeIn>
 
-          {/* Right: Product image */}
+          {/* Right: Product image — linked to color picker */}
           <FadeIn delay={0.15}>
-            <div className="editorial-border bg-card p-4">
+            <div className="editorial-border bg-card p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '10' }}>
               <img
-                src={IMAGES.front}
-                alt="Mochi — retro Macintosh-style desktop AI pet console, front view"
-                className="w-full"
+                src={IMAGES[COLORS[activeColor].img]}
+                alt={`Mochi in ${COLORS[activeColor].name} — retro desktop AI pet console`}
+                className="w-full transition-all duration-300"
               />
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
-                <span className="editorial-label text-muted-foreground">Fig. 01 — Front View</span>
-                <span className="editorial-label text-muted-foreground">12×10×12 cm</span>
+                <span className="editorial-label text-muted-foreground">Fig. 01 — {COLORS[activeColor].name} Edition</span>
+                <span className="editorial-label" style={{ color: COLORS[activeColor].hex }}>{COLORS[activeColor].hex}</span>
               </div>
             </div>
           </FadeIn>
@@ -169,8 +169,7 @@ function WhatItIsSection() {
   );
 }
 
-function ColorPickerSection() {
-  const [active, setActive] = useState(0);
+function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
 
   return (
     <section className="newspaper-rule">
@@ -193,15 +192,15 @@ function ColorPickerSection() {
         <FadeIn delay={0.1}>
           <div className="grid lg:grid-cols-[1fr_0.35fr] gap-8 items-start">
             {/* Main product image */}
-            <div className="editorial-border p-4" style={{ backgroundColor: COLORS[active].hex + '15' }}>
+            <div className="editorial-border p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '15' }}>
               <img
-                src={IMAGES[COLORS[active].img]}
-                alt={`Mochi in ${COLORS[active].name} colorway`}
-                className="w-full max-w-md mx-auto"
+                src={IMAGES[COLORS[activeColor].img]}
+                alt={`Mochi in ${COLORS[activeColor].name} colorway`}
+                className="w-full max-w-md mx-auto transition-all duration-300"
               />
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
-                <span className="editorial-label text-muted-foreground">Fig. 10 — {COLORS[active].name} Edition</span>
-                <span className="editorial-label" style={{ color: COLORS[active].hex }}>{COLORS[active].hex}</span>
+                <span className="editorial-label text-muted-foreground">Fig. 10 — {COLORS[activeColor].name} Edition</span>
+                <span className="editorial-label" style={{ color: COLORS[activeColor].hex }}>{COLORS[activeColor].hex}</span>
               </div>
             </div>
 
@@ -210,9 +209,9 @@ function ColorPickerSection() {
               {COLORS.map((color, i) => (
                 <button
                   key={color.id}
-                  onClick={() => setActive(i)}
+                  onClick={() => setActiveColor(i)}
                   className={`flex items-center gap-3 p-3 border-2 transition-all w-full ${
-                    active === i
+                    activeColor === i
                       ? "border-foreground"
                       : "border-foreground/20 hover:border-foreground/50"
                   }`}
@@ -583,12 +582,14 @@ function Footer() {
 }
 
 export default function Home() {
+  const [activeColor, setActiveColor] = useState(0);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection />
+      <HeroSection activeColor={activeColor} />
       <WhatItIsSection />
-      <ColorPickerSection />
+      <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
       <CrewSection />
       <ScreensSection />
       <MechanicsSection />
