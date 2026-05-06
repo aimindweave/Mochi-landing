@@ -545,13 +545,13 @@ function CrewSection() {
         <div className="grid md:grid-cols-3 gap-0">
           {pets.map((pet, i) => (
             <FadeIn key={pet.name} delay={i * 0.12}>
-              <div className={`editorial-border p-0 overflow-hidden ${i > 0 ? "md:border-l-0" : ""}`}>
+              <div className={`editorial-border p-0 overflow-hidden flex flex-col ${i > 0 ? "md:border-l-0" : ""}`}>
                 {/* Avatar */}
-                <div className="relative" style={{ backgroundColor: pet.bgColor }}>
+                <div className="relative aspect-square" style={{ backgroundColor: pet.bgColor }}>
                   <img
                     src={pet.avatar}
                     alt={`${pet.name} the ${pet.species} — pixel art portrait`}
-                    className="w-full aspect-square object-cover"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-3 left-3">
                     <span className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider bg-background/90 px-2 py-1 border border-foreground/20">
@@ -561,7 +561,7 @@ function CrewSection() {
                 </div>
 
                 {/* Info */}
-                <div className="p-5 sm:p-6">
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
                   <div className="flex items-baseline gap-2 mb-1">
                     <span className="font-[var(--font-display)] text-2xl font-900">{pet.name}</span>
                     <span className="editorial-label text-muted-foreground">/ {pet.species}</span>
@@ -569,7 +569,7 @@ function CrewSection() {
                   <p className="font-[var(--font-mono)] text-[0.65rem] uppercase tracking-wider text-[oklch(0.45_0.2_25)] mb-3">
                     {pet.role}
                   </p>
-                  <p className="text-foreground/80 text-sm leading-relaxed mb-4">{pet.desc}</p>
+                  <p className="text-foreground/80 text-sm leading-relaxed mb-4 flex-1">{pet.desc}</p>
 
                   {/* Quote */}
                   <div className="border-l-3 border-foreground/30 pl-3 mb-4">
@@ -579,7 +579,7 @@ function CrewSection() {
                   </div>
 
                   {/* Traits */}
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-foreground">
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-foreground mt-auto">
                     {pet.traits.map((trait) => (
                       <span
                         key={trait}
