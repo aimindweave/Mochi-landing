@@ -212,6 +212,7 @@ const MOMENTS = [
     quote: "\"You mentioned your mom's birthday is next week. Have you figured out a gift yet? Otto suggested a painting. Spike suggested cash.\"",
     speaker: "Cap's Morning Report",
     mood: "warm",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/exp_morning_report-P6Se2mfN834Te9bqDfK3sy.webp",
   },
   {
     time: "2:00 PM",
@@ -220,6 +221,7 @@ const MOMENTS = [
     quote: "\"You've been staring at that screen for 4 hours. Even I take naps. And I hate naps.\"",
     speaker: "Spike",
     mood: "sharp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/exp_afternoon_nudge-PCh3jSJEtrd3Uwekxq8fr7.webp",
   },
   {
     time: "6:00 PM",
@@ -228,6 +230,7 @@ const MOMENTS = [
     quote: "\"Day 30. You ran again. Spike says it's pointless. Otto drew you a tiny medal. I think it's earned.\"",
     speaker: "Cap's Evening Summary",
     mood: "proud",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/exp_evening_celebrate-S2jAc8bq4cgUkzohDrbmwf.webp",
   },
   {
     time: "11:30 PM",
@@ -236,6 +239,7 @@ const MOMENTS = [
     quote: "\"Go to bed. We'll be here tomorrow.\"",
     speaker: "Cap's goodnight note",
     mood: "gentle",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/exp_night_mode-heACjVHjRGhRjA4nFuThoE.webp",
   },
   {
     time: "Sunday",
@@ -244,6 +248,7 @@ const MOMENTS = [
     quote: "\"Otto's been painting waves all week. I asked why. It just said: 'Someone sounded like they needed the sea.'\"",
     speaker: "Weekly Letter",
     mood: "deep",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/exp_weekly_letter-YGm7WSab4CeqJSmo2KcDtY.webp",
   },
 ];
 
@@ -293,35 +298,43 @@ function ExperienceSection() {
             transition={{ duration: 0.3 }}
             className="grid lg:grid-cols-[1fr_1fr] gap-6 lg:gap-10"
           >
-            {/* Left: Scene description */}
-            <div className="editorial-border bg-card p-6 sm:p-8 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
+            {/* Left: Pixel UI screenshot */}
+            <div className="editorial-border bg-[#1a1a1a] p-3 sm:p-4 flex flex-col">
+              <img
+                src={MOMENTS[activeMoment].image}
+                alt={MOMENTS[activeMoment].title}
+                className="w-full rounded-sm"
+              />
+              <div className="mt-3 flex items-center justify-between">
+                <span className="font-[var(--font-mono)] text-[0.6rem] text-white/40">{MOMENTS[activeMoment].time} · ACTUAL UI</span>
+                <span className="font-[var(--font-mono)] text-[0.6rem] text-white/30 uppercase">{MOMENTS[activeMoment].mood}</span>
+              </div>
+            </div>
+
+            {/* Right: Scene + Quote */}
+            <div className="flex flex-col gap-4 sm:gap-6">
+              {/* Scene description */}
+              <div className="editorial-border bg-card p-5 sm:p-6 flex-1">
+                <div className="flex items-center gap-3 mb-3">
                   <span className="font-[var(--font-mono)] text-xs text-foreground/40 bg-foreground/5 px-2 py-1">{MOMENTS[activeMoment].time}</span>
-                  <span className="font-[var(--font-mono)] text-[0.6rem] text-foreground/30 uppercase">{MOMENTS[activeMoment].mood}</span>
                 </div>
-                <h3 className="font-[var(--font-display)] text-xl sm:text-2xl font-900 leading-tight mb-4">
+                <h3 className="font-[var(--font-display)] text-xl sm:text-2xl font-900 leading-tight mb-3">
                   {MOMENTS[activeMoment].title}
                 </h3>
                 <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                   {MOMENTS[activeMoment].scene}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-foreground/10">
-                <span className="editorial-label text-foreground/40">Moment {activeMoment + 1} of {MOMENTS.length}</span>
-              </div>
-            </div>
 
-            {/* Right: Quote card */}
-            <div className="editorial-border bg-[#1a1a1a] p-6 sm:p-8 flex flex-col justify-between">
-              <div>
-                <div className="w-8 h-1 bg-[#FFD966] mb-6" />
-                <p className="font-[var(--font-display)] text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed italic">
+              {/* Quote card */}
+              <div className="editorial-border bg-foreground p-5 sm:p-6 flex-1">
+                <div className="w-8 h-1 bg-[#FFD966] mb-4" />
+                <p className="font-[var(--font-display)] text-base sm:text-lg text-background/90 leading-relaxed italic">
                   {MOMENTS[activeMoment].quote}
                 </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/10">
-                <span className="font-[var(--font-mono)] text-xs text-white/40">— {MOMENTS[activeMoment].speaker}</span>
+                <div className="mt-4 pt-3 border-t border-background/10">
+                  <span className="font-[var(--font-mono)] text-xs text-background/40">— {MOMENTS[activeMoment].speaker}</span>
+                </div>
               </div>
             </div>
           </motion.div>
