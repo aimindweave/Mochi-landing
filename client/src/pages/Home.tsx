@@ -215,12 +215,15 @@ function VideoSection() {
             {/* 16:9 aspect ratio container */}
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               {!playing ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] overflow-hidden">
-                  {/* Decorative pixel grid background */}
-                  <div className="absolute inset-0 opacity-10" style={{
-                    backgroundImage: 'radial-gradient(circle, #FFD966 1px, transparent 1px)',
-                    backgroundSize: '24px 24px'
-                  }} />
+                <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden">
+                  {/* Pixel art GIF as background thumbnail */}
+                  <img
+                    src="/manus-storage/mochi_pixel_preview_6e486720.gif"
+                    alt="Mochi pixel art preview — Cap reading, Otto painting, Spike walking"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Dark overlay for contrast */}
+                  <div className="absolute inset-0 bg-black/30" />
 
                   {/* Play button */}
                   <button
@@ -233,10 +236,10 @@ function VideoSection() {
                   </button>
 
                   {/* Caption */}
-                  <p className="relative z-10 font-[var(--font-display)] text-white text-xl sm:text-2xl font-700 mb-2 text-center px-4">
+                  <p className="relative z-10 font-[var(--font-display)] text-white text-xl sm:text-2xl font-700 mb-2 text-center px-4 drop-shadow-lg">
                     See Mochi in action
                   </p>
-                  <p className="relative z-10 font-[var(--font-mono)] text-white/50 text-xs sm:text-sm text-center px-4">
+                  <p className="relative z-10 font-[var(--font-mono)] text-white/70 text-xs sm:text-sm text-center px-4 drop-shadow">
                     30 seconds · No sound required
                   </p>
                 </div>
