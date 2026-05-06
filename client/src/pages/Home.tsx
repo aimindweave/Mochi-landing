@@ -2,9 +2,9 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const IMAGES = {
-  front: "/manus-storage/industrial_design_front_49fa4acf.png",
-  angle: "/manus-storage/industrial_design_angle_90897e8f.png",
-  detail: "/manus-storage/industrial_design_detail_bb193069.png",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_front_v2-DVCJxRNmFFws8NKxTdhPzH.png",
+  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_angle_v2-FmM4sM2DrZPHF2QDdxgAtj.png",
+  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_back_v2-bPFgE5DG8LU3PzEyXJV2U8.png",
   uiHome: "/manus-storage/ui_home_screen_99fd299b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b.png",
@@ -95,7 +95,7 @@ function HeroSection() {
             <div className="editorial-border bg-card p-4">
               <img
                 src={IMAGES.front}
-                alt="Mochi console — front view"
+                alt="Mochi — retro Macintosh-style desktop AI pet console, front view"
                 className="w-full"
               />
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
@@ -118,8 +118,8 @@ function WhatItIsSection() {
           {/* Left: Product angle shot */}
           <FadeIn>
             <div className="editorial-border bg-card p-3">
-              <img src={IMAGES.angle} alt="Mochi on a desk" className="w-full" />
-              <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 02 — Lifestyle</p>
+              <img src={IMAGES.angle} alt="Mochi on a wooden desk — front and back view showing ventilation grilles" className="w-full" />
+              <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 02 — Lifestyle & Rear View</p>
             </div>
           </FadeIn>
 
@@ -373,8 +373,8 @@ function SpecsSection() {
 
           <FadeIn delay={0.15}>
             <div className="editorial-border bg-card p-3">
-              <img src={IMAGES.detail} alt="Mochi detail — materials and buttons" className="w-full" />
-              <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 09 — Material Detail</p>
+              <img src={IMAGES.detail} alt="Mochi back panel — ventilation, USB-C ports, and kill switch" className="w-full" />
+              <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 09 — Back Panel & Ports</p>
             </div>
           </FadeIn>
         </div>
