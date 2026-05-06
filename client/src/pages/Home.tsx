@@ -218,7 +218,7 @@ function VideoSection() {
                 <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden">
                   {/* Pixel art GIF as background thumbnail */}
                   <img
-                    src="/manus-storage/mochi_pixel_preview_6e486720.gif"
+                    src="/manus-storage/mochi_pixel_preview_v2_330744fe.gif"
                     alt="Mochi pixel art preview — Cap reading, Otto painting, Spike walking"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
