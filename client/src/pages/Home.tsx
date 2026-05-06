@@ -72,23 +72,23 @@ function PixelLogo({ size = 24 }: { size?: number }) {
 function Header() {
   return (
     <header className="border-b-3 border-foreground">
-      <div className="container flex items-center justify-between py-4">
-        <div className="flex items-center gap-3">
-          <PixelLogo size={28} />
+      <div className="container flex items-center justify-between py-3 sm:py-4">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <PixelLogo size={24} />
           <div>
-            <span className="font-[var(--font-display)] text-2xl font-900 italic tracking-tight">Mochi</span>
-            <span className="text-[0.6rem] align-super font-[var(--font-mono)]">™</span>
+            <span className="font-[var(--font-display)] text-xl sm:text-2xl font-900 italic tracking-tight">Mochi</span>
+            <span className="text-[0.5rem] sm:text-[0.6rem] align-super font-[var(--font-mono)]">™</span>
           </div>
         </div>
-        <div className="hidden sm:flex items-center gap-6">
-          <span className="editorial-label text-muted-foreground">DOC 001 · v2</span>
-          <a href="#signup" className="editorial-label bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-3 sm:gap-6">
+          <span className="editorial-label text-muted-foreground hidden sm:inline">DOC 001 · v2</span>
+          <a href="#signup" className="editorial-label bg-foreground text-background px-3 sm:px-4 py-1.5 sm:py-2 hover:opacity-80 transition-opacity text-[0.6rem] sm:text-xs">
             Get Early Access →
           </a>
         </div>
       </div>
-      <div className="container flex items-center justify-between py-2 border-t border-foreground/20">
-        <span className="editorial-label text-muted-foreground">A Desktop AI Console / Product Brief</span>
+      <div className="container flex items-center justify-between py-1.5 sm:py-2 border-t border-foreground/20">
+        <span className="editorial-label text-muted-foreground text-[0.55rem] sm:text-xs">A Desktop AI Console / Product Brief</span>
         <div className="hidden sm:flex gap-6">
           <span className="editorial-label"><strong>Market</strong> United States</span>
           <span className="editorial-label"><strong>Stage</strong> Pre-launch</span>
@@ -110,81 +110,33 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
   };
 
   return (
-    <section className="py-12 lg:py-20">
+    <section className="py-6 sm:py-12 lg:py-20">
       <div className="container">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-start">
-          {/* Left: Hero copy + signup */}
-          <FadeIn>
-            <div className="editorial-border gold-block p-8 sm:p-12">
-              <p className="editorial-label text-foreground/60 mb-6">— Headline / Hero Copy —</p>
-              <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl lg:text-[3.5rem] font-900 leading-[1.08] tracking-tight mb-6">
-                A tiny console for AI pets that <em className="text-[oklch(0.45_0.2_25)]">actually</em> live with you.
-              </h1>
-              <p className="text-lg sm:text-xl leading-relaxed max-w-lg text-foreground/80 mb-8">
-                Three small creatures, powered by frontier AI, living a quiet little life on your desk. They write, they draw, they bicker, they remember. They don't ping you. They just <em>are.</em>
-              </p>
-
-              {/* Inline signup form */}
-              {!submitted ? (
-                <div>
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
-                    <input
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="flex-1 px-4 py-3 bg-background/80 border-2 border-foreground/40 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-foreground transition-colors font-[var(--font-mono)] text-sm"
-                    />
-                    <button
-                      type="submit"
-                      className="px-6 py-3 bg-foreground text-background font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
-                    >
-                      Join Waitlist →
-                    </button>
-                  </form>
-                  <div className="flex items-center gap-4 mt-4">
-                    <span className="editorial-label text-foreground/50">
-                      <strong className="text-foreground">{waitlistCount.toLocaleString()}</strong> people already waiting
-                    </span>
-                    <span className="editorial-label text-[oklch(0.45_0.2_25)]">
-                      Early bird: $399
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div className="border-2 border-foreground/30 bg-background/50 p-6 max-w-md">
-                  <p className="font-[var(--font-display)] text-xl font-900 mb-1">You're in. 🎉</p>
-                  <p className="text-foreground/60 text-sm">We'll email you once — when Mochi is ready.</p>
-                </div>
-              )}
-            </div>
-          </FadeIn>
-
-          {/* Right: Product image + color dots */}
-          <FadeIn delay={0.15}>
-            <div className="editorial-border bg-card p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '10' }}>
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-12 lg:gap-16 items-start">
+          {/* Product image — shown FIRST on mobile for immediate visual impact */}
+          <FadeIn delay={0.15} className="order-1 lg:order-2">
+            <div className="editorial-border bg-card p-2 sm:p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '10' }}>
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeColor}
                   src={IMAGES[COLORS[activeColor].img]}
                   alt={`Mochi in ${COLORS[activeColor].name} — retro desktop AI pet console`}
-                  className="w-full"
+                  className="w-full max-h-[45vh] sm:max-h-none object-contain"
                   initial={{ opacity: 0.6 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0.6 }}
                   transition={{ duration: 0.3 }}
                 />
               </AnimatePresence>
-              <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
-                <span className="editorial-label text-muted-foreground">Fig. 01 — {COLORS[activeColor].name} Edition</span>
+              <div className="flex justify-between items-center mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-foreground/20">
+                <span className="editorial-label text-muted-foreground text-[0.6rem] sm:text-xs">Fig. 01 — {COLORS[activeColor].name} Edition</span>
                 {/* Color dots in hero */}
-                <div className="flex gap-2">
+                <div className="flex gap-1.5 sm:gap-2">
                   {COLORS.map((color, i) => (
                     <button
                       key={color.id}
                       onClick={() => setActiveColor(i)}
-                      className={`w-5 h-5 rounded-full border-2 transition-all ${
+                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 transition-all ${
                         activeColor === i ? "border-foreground scale-110" : "border-foreground/30 hover:border-foreground/60"
                       }`}
                       style={{ backgroundColor: color.hex }}
@@ -194,9 +146,57 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
                 </div>
               </div>
             </div>
-            <p className="editorial-label text-muted-foreground mt-3 text-center">
+            <p className="editorial-label text-muted-foreground mt-2 sm:mt-3 text-center text-[0.6rem] sm:text-xs">
               $399 · No subscription · Ships Q4 2026
             </p>
+          </FadeIn>
+
+          {/* Hero copy + signup — shown SECOND on mobile */}
+          <FadeIn className="order-2 lg:order-1">
+            <div className="editorial-border gold-block p-5 sm:p-8 lg:p-12">
+              <p className="editorial-label text-foreground/60 mb-3 sm:mb-6 text-[0.6rem] sm:text-xs">— Headline / Hero Copy —</p>
+              <h1 className="font-[var(--font-display)] text-[1.75rem] sm:text-4xl lg:text-[3.5rem] font-900 leading-[1.1] tracking-tight mb-3 sm:mb-6">
+                A tiny console for AI pets that <em className="text-[oklch(0.45_0.2_25)]">actually</em> live with you.
+              </h1>
+              <p className="text-sm sm:text-lg lg:text-xl leading-relaxed max-w-lg text-foreground/80 mb-5 sm:mb-8">
+                Three small creatures, powered by frontier AI, living a quiet little life on your desk. They write, they draw, they bicker, they remember. They don't ping you. They just <em>are.</em>
+              </p>
+
+              {/* Inline signup form */}
+              {!submitted ? (
+                <div>
+                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md">
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-background/80 border-2 border-foreground/40 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-foreground transition-colors font-[var(--font-mono)] text-xs sm:text-sm"
+                    />
+                    <button
+                      type="submit"
+                      className="px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background font-[var(--font-mono)] text-xs sm:text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
+                    >
+                      Join Waitlist →
+                    </button>
+                  </form>
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 sm:mt-4">
+                    <span className="editorial-label text-foreground/50 text-[0.6rem] sm:text-xs">
+                      <strong className="text-foreground">{waitlistCount.toLocaleString()}</strong> people already waiting
+                    </span>
+                    <span className="editorial-label text-[oklch(0.45_0.2_25)] text-[0.6rem] sm:text-xs">
+                      Early bird: $399
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="border-2 border-foreground/30 bg-background/50 p-4 sm:p-6 max-w-md">
+                  <p className="font-[var(--font-display)] text-lg sm:text-xl font-900 mb-1">You're in. 🎉</p>
+                  <p className="text-foreground/60 text-xs sm:text-sm">We'll email you once — when Mochi is ready.</p>
+                </div>
+              )}
+            </div>
           </FadeIn>
         </div>
       </div>
