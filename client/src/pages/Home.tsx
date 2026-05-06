@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const IMAGES = {
-  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_oat-WX5BUoWUqYxoS5PNh7rBNr.webp",
-  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_sage-BP28yVcXHz9jYVpgPjHt5d.webp",
-  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_plum-DZX9Dt8QV4iEsDyp7J8odK.webp",
+  front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_oat-E8B6Yp5UBTNMmDzMEhstXL.webp",
+  angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_sage-oVUiSE7PHNZy2Jey9PBSE3.webp",
+  detail: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_plum-Yqa3ULT6FA5TqPw3jwnzGM.webp",
   logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_v2-c3MdjyABhuZhPk2nShaCcb.png",
-  colorOat: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_oat-WX5BUoWUqYxoS5PNh7rBNr.webp",
-  colorSage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_sage-BP28yVcXHz9jYVpgPjHt5d.webp",
-  colorBlush: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_blush-SNRRDwTZ8jwV5FGpLUSXJE.webp",
-  colorFog: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_fog-iEXKGA5dnRbenbHE4QLt4C.webp",
-  colorPlum: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_v5_plum-DZX9Dt8QV4iEsDyp7J8odK.webp",
+  colorOat: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_oat-E8B6Yp5UBTNMmDzMEhstXL.webp",
+  colorSage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_sage-oVUiSE7PHNZy2Jey9PBSE3.webp",
+  colorBlush: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_blush-9QnWGnTiNceBqivHLYp4Uy.webp",
+  colorFog: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_fog-NuJfqEERdmYPoWu4duTzbt.webp",
+  colorPlum: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_plum-Yqa3ULT6FA5TqPw3jwnzGM.webp",
   uiHome: "/manus-storage/ui_home_screen_99fd299b_ea95f94b.png",
   uiDaily: "/manus-storage/ui_daily_letter_c29847f5_c2830470.png",
   uiAsk: "/manus-storage/ui_ask_crew_f946734b_c35e7d11.png",
@@ -544,8 +544,8 @@ function CrewSection() {
 
         <div className="grid md:grid-cols-3 gap-0">
           {pets.map((pet, i) => (
-            <FadeIn key={pet.name} delay={i * 0.12}>
-              <div className={`editorial-border p-0 overflow-hidden flex flex-col ${i > 0 ? "md:border-l-0" : ""}`}>
+            <FadeIn key={pet.name} delay={i * 0.12} className="h-full">
+              <div className={`editorial-border p-0 overflow-hidden flex flex-col h-full ${i > 0 ? "md:border-l-0" : ""}`}>
                 {/* Avatar */}
                 <div className="relative aspect-square" style={{ backgroundColor: pet.bgColor }}>
                   <img
@@ -569,25 +569,25 @@ function CrewSection() {
                   <p className="font-[var(--font-mono)] text-[0.65rem] uppercase tracking-wider text-[oklch(0.45_0.2_25)] mb-3">
                     {pet.role}
                   </p>
-                  <p className="text-foreground/80 text-sm leading-relaxed mb-4 flex-1">{pet.desc}</p>
+                  <p className="text-foreground/80 text-sm leading-relaxed">{pet.desc}</p>
 
-                  {/* Quote */}
-                  <div className="border-l-3 border-foreground/30 pl-3 mb-4">
-                    <p className="text-foreground/60 text-xs italic font-[var(--font-display)]">
-                      {pet.quote}
-                    </p>
-                  </div>
-
-                  {/* Traits */}
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-foreground mt-auto">
-                    {pet.traits.map((trait) => (
-                      <span
-                        key={trait}
-                        className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider px-2 py-0.5 border border-foreground/30 text-foreground/70"
-                      >
-                        {trait}
-                      </span>
-                    ))}
+                  {/* Quote + Traits pinned to bottom */}
+                  <div className="mt-auto pt-4">
+                    <div className="border-l-3 border-foreground/30 pl-3 mb-4 min-h-[2.5rem]">
+                      <p className="text-foreground/60 text-xs italic font-[var(--font-display)]">
+                        {pet.quote}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-foreground">
+                      {pet.traits.map((trait) => (
+                        <span
+                          key={trait}
+                          className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider px-2 py-0.5 border border-foreground/30 text-foreground/70"
+                        >
+                          {trait}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
