@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const IMAGES = {
   front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_color_butter-4PerymdWHdtyPeGvjoknWX.png",
@@ -17,6 +17,9 @@ const IMAGES = {
   uiWeekly: "/manus-storage/ui_weekly_letter_4af41b85.png",
   uiNight: "/manus-storage/ui_night_mode_d37da548.png",
   uiOtto: "/manus-storage/ui_otto_creation_3656c205.png",
+  aiMemory: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_memory-YTYXMJ4ZhZwZGhE7X3ShX4.webp",
+  aiCreation: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_creation-BAZwwfWJJgjcK8WHc7H4Kh.webp",
+  aiRelationship: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_relationship-CLnxcZzrs9WJMUaMdPXLwe.webp",
 };
 
 const COLORS = [
@@ -26,6 +29,18 @@ const COLORS = [
   { id: "lavender", name: "Lavender", hex: "#B8A9E8", img: "colorLavender" as const },
   { id: "berry", name: "Berry", hex: "#E85D8A", img: "colorBerry" as const },
 ];
+
+// Simulated waitlist count — starts at 847 and slowly increments
+function useWaitlistCount() {
+  const [count, setCount] = useState(847);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((c) => c + Math.floor(Math.random() * 2));
+    }, 30000); // increment every ~30s
+    return () => clearInterval(interval);
+  }, []);
+  return count;
+}
 
 function FadeIn({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -66,9 +81,9 @@ function Header() {
           </div>
         </div>
         <div className="hidden sm:flex items-center gap-6">
-          <span className="editorial-label text-muted-foreground">DOC 001 · v1</span>
+          <span className="editorial-label text-muted-foreground">DOC 001 · v2</span>
           <a href="#signup" className="editorial-label bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity">
-            Get Notified →
+            Get Early Access →
           </a>
         </div>
       </div>
@@ -76,7 +91,7 @@ function Header() {
         <span className="editorial-label text-muted-foreground">A Desktop AI Console / Product Brief</span>
         <div className="hidden sm:flex gap-6">
           <span className="editorial-label"><strong>Market</strong> United States</span>
-          <span className="editorial-label"><strong>Stage</strong> Concept</span>
+          <span className="editorial-label"><strong>Stage</strong> Pre-launch</span>
           <span className="editorial-label"><strong>Date</strong> May 2026</span>
         </div>
       </div>
@@ -84,37 +99,104 @@ function Header() {
   );
 }
 
-function HeroSection({ activeColor }: { activeColor: number }) {
+function HeroSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const waitlistCount = useWaitlistCount();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) setSubmitted(true);
+  };
+
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-12 lg:py-20">
       <div className="container">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-start">
-          {/* Left: Hero copy in gold block */}
+          {/* Left: Hero copy + signup */}
           <FadeIn>
             <div className="editorial-border gold-block p-8 sm:p-12">
               <p className="editorial-label text-foreground/60 mb-6">— Headline / Hero Copy —</p>
-              <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl lg:text-[3.5rem] font-900 leading-[1.08] tracking-tight mb-8">
+              <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl lg:text-[3.5rem] font-900 leading-[1.08] tracking-tight mb-6">
                 A tiny console for AI pets that <em className="text-[oklch(0.45_0.2_25)]">actually</em> live with you.
               </h1>
-              <p className="text-lg sm:text-xl leading-relaxed max-w-lg text-foreground/80">
+              <p className="text-lg sm:text-xl leading-relaxed max-w-lg text-foreground/80 mb-8">
                 Three small creatures, powered by frontier AI, living a quiet little life on your desk. They write, they draw, they bicker, they remember. They don't ping you. They just <em>are.</em>
               </p>
+
+              {/* Inline signup form */}
+              {!submitted ? (
+                <div>
+                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="flex-1 px-4 py-3 bg-background/80 border-2 border-foreground/40 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-foreground transition-colors font-[var(--font-mono)] text-sm"
+                    />
+                    <button
+                      type="submit"
+                      className="px-6 py-3 bg-foreground text-background font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
+                    >
+                      Join Waitlist →
+                    </button>
+                  </form>
+                  <div className="flex items-center gap-4 mt-4">
+                    <span className="editorial-label text-foreground/50">
+                      <strong className="text-foreground">{waitlistCount.toLocaleString()}</strong> people already waiting
+                    </span>
+                    <span className="editorial-label text-[oklch(0.45_0.2_25)]">
+                      Early bird: $399
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="border-2 border-foreground/30 bg-background/50 p-6 max-w-md">
+                  <p className="font-[var(--font-display)] text-xl font-900 mb-1">You're in. 🎉</p>
+                  <p className="text-foreground/60 text-sm">We'll email you once — when Mochi is ready.</p>
+                </div>
+              )}
             </div>
           </FadeIn>
 
-          {/* Right: Product image — linked to color picker */}
+          {/* Right: Product image + color dots */}
           <FadeIn delay={0.15}>
             <div className="editorial-border bg-card p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '10' }}>
-              <img
-                src={IMAGES[COLORS[activeColor].img]}
-                alt={`Mochi in ${COLORS[activeColor].name} — retro desktop AI pet console`}
-                className="w-full transition-all duration-300"
-              />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeColor}
+                  src={IMAGES[COLORS[activeColor].img]}
+                  alt={`Mochi in ${COLORS[activeColor].name} — retro desktop AI pet console`}
+                  className="w-full"
+                  initial={{ opacity: 0.6 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0.6 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </AnimatePresence>
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
                 <span className="editorial-label text-muted-foreground">Fig. 01 — {COLORS[activeColor].name} Edition</span>
-                <span className="editorial-label" style={{ color: COLORS[activeColor].hex }}>{COLORS[activeColor].hex}</span>
+                {/* Color dots in hero */}
+                <div className="flex gap-2">
+                  {COLORS.map((color, i) => (
+                    <button
+                      key={color.id}
+                      onClick={() => setActiveColor(i)}
+                      className={`w-5 h-5 rounded-full border-2 transition-all ${
+                        activeColor === i ? "border-foreground scale-110" : "border-foreground/30 hover:border-foreground/60"
+                      }`}
+                      style={{ backgroundColor: color.hex }}
+                      title={color.name}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
+            <p className="editorial-label text-muted-foreground mt-3 text-center">
+              $399 · No subscription · Ships Q4 2026
+            </p>
           </FadeIn>
         </div>
       </div>
@@ -151,9 +233,9 @@ function WhatItIsSection() {
               <div className="grid grid-cols-2 gap-4">
                 {[
                   ["No mic", "No camera"],
-                  ["No subscription", "$299 one-time"],
+                  ["No subscription", "$399 one-time"],
                   ["Frontier AI", "Always on"],
-                  ["Kill switch", "True privacy"],
+                  ["Kill switch", "Your data stays local"],
                 ].map(([a, b], i) => (
                   <div key={i} className="border-t-2 border-foreground pt-3">
                     <p className="font-[var(--font-mono)] text-xs font-bold">{a}</p>
@@ -169,8 +251,98 @@ function WhatItIsSection() {
   );
 }
 
-function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
+function AIShowcaseSection() {
+  const moments = [
+    {
+      img: IMAGES.aiMemory,
+      label: "Long-term Memory",
+      caption: "Cap remembered something you said 22 days ago.",
+      detail: "Not a chatbot. A companion that accumulates understanding of you over months and years.",
+    },
+    {
+      img: IMAGES.aiCreation,
+      label: "Personalized Creation",
+      caption: "Otto made this after you talked about missing the ocean.",
+      detail: "Every poem, every drawing, every story is generated in real-time by frontier AI. Nothing is canned. Ever.",
+    },
+    {
+      img: IMAGES.aiRelationship,
+      label: "Evolving Relationships",
+      caption: "Day 1: strangers. Day 30: first fight. Day 45: they made up.",
+      detail: "The three pets develop real relationships — they argue, reconcile, form inside jokes, and grow together.",
+    },
+  ];
 
+  const [active, setActive] = useState(0);
+
+  return (
+    <section className="newspaper-rule">
+      <div className="container py-16 lg:py-24">
+        <FadeIn>
+          <div className="mb-12">
+            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
+              AI Depth
+            </p>
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1] mb-4">
+              Not scripted. Never canned.<br /><em>Always real.</em>
+            </h2>
+            <p className="text-foreground/60 max-w-xl">
+              Powered by frontier AI (Claude / GPT-class models). These aren't chatbot responses — they're memories, creations, and relationships that evolve over months.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="grid lg:grid-cols-[1fr_0.45fr] gap-8 items-start">
+            {/* Main showcase image */}
+            <div className="editorial-border bg-[#1a1a1a] p-3">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={active}
+                  src={moments[active].img}
+                  alt={moments[active].caption}
+                  className="w-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </AnimatePresence>
+              <div className="mt-3 pt-3 border-t border-white/20">
+                <p className="font-[var(--font-mono)] text-xs text-white/80 mb-1">"{moments[active].caption}"</p>
+                <p className="font-[var(--font-mono)] text-[0.65rem] text-white/40">{moments[active].detail}</p>
+              </div>
+            </div>
+
+            {/* Moment selector */}
+            <div className="flex lg:flex-col gap-3">
+              {moments.map((moment, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  className={`text-left p-4 border-2 transition-all w-full ${
+                    active === i
+                      ? "border-foreground bg-secondary"
+                      : "border-foreground/20 hover:border-foreground/50"
+                  }`}
+                >
+                  <span className="editorial-label text-[oklch(0.45_0.2_25)] block mb-1">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="font-[var(--font-display)] text-sm font-700 mb-1">{moment.label}</p>
+                  <p className="font-[var(--font-mono)] text-[0.65rem] text-muted-foreground leading-relaxed">{moment.caption}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
   return (
     <section className="newspaper-rule">
       <div className="container py-16 lg:py-24">
@@ -193,11 +365,18 @@ function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: numb
           <div className="grid lg:grid-cols-[1fr_0.35fr] gap-8 items-start">
             {/* Main product image */}
             <div className="editorial-border p-4 transition-colors duration-300" style={{ backgroundColor: COLORS[activeColor].hex + '15' }}>
-              <img
-                src={IMAGES[COLORS[activeColor].img]}
-                alt={`Mochi in ${COLORS[activeColor].name} colorway`}
-                className="w-full max-w-md mx-auto transition-all duration-300"
-              />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeColor}
+                  src={IMAGES[COLORS[activeColor].img]}
+                  alt={`Mochi in ${COLORS[activeColor].name} colorway`}
+                  className="w-full max-w-md mx-auto"
+                  initial={{ opacity: 0.6 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0.6 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </AnimatePresence>
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-foreground/20">
                 <span className="editorial-label text-muted-foreground">Fig. 10 — {COLORS[activeColor].name} Edition</span>
                 <span className="editorial-label" style={{ color: COLORS[activeColor].hex }}>{COLORS[activeColor].hex}</span>
@@ -237,8 +416,8 @@ function ColorPickerSection({ activeColor, setActiveColor }: { activeColor: numb
 function CrewSection() {
   const pets = [
     { name: "Cap", species: "Capybara", desc: "Slow, thoughtful, gives the kind of advice you wish your therapist would give.", traits: "Warm · Patient · Philosophical" },
-    { name: "Otto", species: "Octopus", desc: "Curious, always making things — sketches, poems, small experiments.", traits: "Creative · Eccentric · Generative" },
-    { name: "Spike", species: "Cactus", desc: "Sharp tongue, soft heart. Says the thing nobody else will.", traits: "Deadpan · Sarcastic · Insightful" },
+    { name: "Otto", species: "Fox", desc: "Curious, always making things — sketches, poems, small experiments.", traits: "Creative · Eccentric · Generative" },
+    { name: "Spike", species: "Hedgehog", desc: "Sharp tongue, soft heart. Says the thing nobody else will.", traits: "Deadpan · Sarcastic · Insightful" },
   ];
 
   return (
@@ -354,11 +533,11 @@ function MechanicsSection() {
   const mechanics = [
     {
       title: "Passive Companionship",
-      desc: "The default state. Pets live their lives — reading, drawing, arguing, napping. You don't have to do anything. It's a houseplant that has opinions about your day.",
+      desc: "The default state. Pets live their lives — reading, drawing, arguing, napping. Working alone at your desk? They're there. Not helping. Not distracting. Just... present.",
     },
     {
       title: "Morning Report",
-      desc: "Every morning: what the pets did while you slept. Small gossip. Like a soap opera you never asked for but can't stop watching.",
+      desc: "Every morning: what the pets did while you slept. Cap noticed you worked until 2am last night. It has thoughts about that.",
     },
     {
       title: "Ask the Crew",
@@ -411,6 +590,46 @@ function MechanicsSection() {
   );
 }
 
+function TrustSection() {
+  return (
+    <section className="newspaper-rule">
+      <div className="container py-16 lg:py-24">
+        <FadeIn>
+          <div className="mb-12">
+            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
+              Trust
+            </p>
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1] mb-4">
+              Built for trust,<br />not surveillance.
+            </h2>
+            <p className="text-foreground/60 max-w-lg">
+              Your pets live on your device, not our servers. No microphone. No camera. A physical kill switch cuts all connectivity instantly.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+            {[
+              { icon: "🚫🎤", title: "No Microphone", desc: "Can't listen. Hardware absent." },
+              { icon: "🚫📷", title: "No Camera", desc: "Can't watch. Hardware absent." },
+              { icon: "🔴", title: "Kill Switch", desc: "Physical toggle. Cuts WiFi + BT instantly." },
+              { icon: "💾", title: "Local-first", desc: "Your data stays on your device." },
+            ].map((item, i) => (
+              <div key={i} className="editorial-border p-6 -mt-[3px] -ml-[3px] text-center">
+                <span className="text-2xl block mb-3">{item.icon}</span>
+                <p className="font-[var(--font-mono)] text-xs font-bold uppercase mb-1">{item.title}</p>
+                <p className="font-[var(--font-mono)] text-[0.65rem] text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
 function SpecsSection() {
   return (
     <section className="newspaper-rule">
@@ -436,7 +655,8 @@ function SpecsSection() {
                   ["Controls", "OK + D-pad + toggle + kill switch"],
                   ["Sensors", "None (no mic, no camera)"],
                   ["AI", "Frontier (Claude / GPT-class)"],
-                  ["Price", "$299 early / $349 retail"],
+                  ["Storage", "Local-first with optional cloud"],
+                  ["Price", "$399 early / $449 retail"],
                   ["Subscription", "None. Ever."],
                 ].map(([label, value]) => (
                   <div key={label} className="flex justify-between items-baseline py-3 border-b border-foreground/20">
@@ -488,7 +708,7 @@ function DifferenceSection() {
                   ["Companions", "3 pets with evolving relationships", "Single AI character"],
                   ["Privacy", "No mic. No camera. Physical kill switch.", "Always listening"],
                   ["AI Quality", "Frontier models (Claude/GPT-class)", "Mid-tier for cost savings"],
-                  ["Pricing", "$299 one-time. No subscription.", "$15–30/month forever"],
+                  ["Pricing", "$399 one-time. No subscription.", "$15–30/month forever"],
                   ["Output", "Poems, drawings, stories, letters", "Chat responses only"],
                   ["Form Factor", "Desktop presence, always on", "Phone app or portable gadget"],
                   ["Memory", "Remembers you for months/years", "Context resets each session"],
@@ -511,6 +731,7 @@ function DifferenceSection() {
 function SignupSection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const waitlistCount = useWaitlistCount();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -526,9 +747,17 @@ function SignupSection() {
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-900 leading-[1.1] mt-6 mb-4">
               Be first to meet the crew.
             </h2>
-            <p className="text-background/60 text-lg mb-10 max-w-lg">
-              Join the waitlist for early-bird pricing ($299) and first access when Mochi launches on Kickstarter, Q4 2026.
+            <p className="text-background/60 text-lg mb-4 max-w-lg">
+              Join the waitlist for early-bird pricing ($399) and first access when Mochi launches on Kickstarter, Q4 2026.
             </p>
+
+            {/* Urgency: spots remaining */}
+            <div className="flex items-center gap-3 mb-8">
+              <span className="inline-block w-2 h-2 bg-[#7EDCB5] rounded-full animate-pulse" />
+              <span className="font-[var(--font-mono)] text-sm text-background/70">
+                <strong className="text-background">{(1000 - waitlistCount % 1000).toLocaleString()}</strong> early-bird spots remaining out of 1,000
+              </span>
+            </div>
 
             {!submitted ? (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg">
@@ -542,14 +771,14 @@ function SignupSection() {
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-secondary text-secondary-foreground font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
+                  className="px-8 py-4 bg-[#FFD966] text-foreground font-[var(--font-mono)] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shrink-0"
                 >
-                  Join Waitlist →
+                  Claim My Spot →
                 </button>
               </form>
             ) : (
               <div className="border-2 border-background/30 p-8 max-w-lg">
-                <p className="font-[var(--font-display)] text-2xl font-900 mb-2">You're in.</p>
+                <p className="font-[var(--font-display)] text-2xl font-900 mb-2">You're in. 🎉</p>
                 <p className="text-background/60">We'll email you once — when Mochi is ready. The crew is excited to meet you.</p>
               </div>
             )}
@@ -587,12 +816,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection activeColor={activeColor} />
+      <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
       <WhatItIsSection />
+      <AIShowcaseSection />
       <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
       <CrewSection />
       <ScreensSection />
       <MechanicsSection />
+      <TrustSection />
       <SpecsSection />
       <DifferenceSection />
       <SignupSection />
