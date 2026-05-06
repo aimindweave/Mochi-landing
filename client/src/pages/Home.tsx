@@ -678,66 +678,6 @@ function ScreensSection() {
   );
 }
 
-function MechanicsSection() {
-  const mechanics = [
-    {
-      title: "Passive Companionship",
-      desc: "The default state. Pets live their lives — reading, drawing, arguing, napping. Working alone at your desk? They're there. Not helping. Not distracting. Just... present.",
-    },
-    {
-      title: "Morning Report",
-      desc: "Every morning: what the pets did while you slept. Cap noticed you worked until 2am last night. It has thoughts about that.",
-    },
-    {
-      title: "Ask the Crew",
-      desc: "Hold OK and ask any question. All three respond from their personality angle. Cap gives wise advice. Otto answers with a poem. Spike gives the sarcastic truth.",
-    },
-    {
-      title: "Weekly Letter",
-      desc: "'What we learned about you this week' — making the AI's growing memory tangible. The most important moment of the product.",
-    },
-    {
-      title: "Real Creation",
-      desc: "Otto writes poems. Cap makes drawings. Spike writes complaints on a chalkboard. All real-time AI-generated. Nothing is canned. Ever.",
-    },
-    {
-      title: "Growth Over Time",
-      desc: "They grow smarter (memory accumulates). Their personalities sharpen (traits drift). Their relationships deepen (they fight, reconcile, bond).",
-    },
-  ];
-
-  return (
-    <section className="newspaper-rule">
-      <div className="container py-16 lg:py-24">
-        <FadeIn>
-          <div className="mb-12">
-            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
-              How It Works
-            </p>
-            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1]">
-              Not features. <em>Behaviors.</em>
-            </h2>
-          </div>
-        </FadeIn>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0">
-          {mechanics.map((m, i) => (
-            <FadeIn key={m.title} delay={i * 0.05}>
-              <div className="editorial-border p-6 sm:p-8 -mt-[3px] -ml-[3px]">
-                <span className="editorial-label text-muted-foreground mb-3 block">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-[var(--font-display)] text-xl font-700 mb-3">{m.title}</h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">{m.desc}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function TrustSection() {
   return (
@@ -1065,7 +1005,6 @@ export default function Home() {
       <ColorPickerSection activeColor={activeColor} setActiveColor={setActiveColor} />
       <CrewSection />
       <ScreensSection />
-      <MechanicsSection />
       <TrustSection />
       <SpecsSection />
       <DifferenceSection />
