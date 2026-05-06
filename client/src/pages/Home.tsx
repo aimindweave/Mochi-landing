@@ -799,6 +799,99 @@ function DifferenceSection() {
   );
 }
 
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "Does Mochi need internet to work?",
+      a: "Mochi runs locally by default — your pets live and interact even without WiFi. Internet is only needed for optional cloud-enhanced moments (like Otto's detailed paintings or Cap's long-form letters). You can toggle between fully-offline and hybrid mode anytime.",
+    },
+    {
+      q: "Can my pets die?",
+      a: "No. Mochi pets don't die, get sick, or punish you for neglecting them. They're always there when you come back. Their personalities evolve and relationships deepen over time, but there's no anxiety mechanic. This is companionship, not obligation.",
+    },
+    {
+      q: "Where is my data stored?",
+      a: "All conversation history, memories, and pet personality data are stored locally on the device. Nothing is sent to our servers unless you explicitly opt into cloud-enhanced features. The physical kill switch cuts all connectivity instantly if you ever want complete isolation.",
+    },
+    {
+      q: "What AI models does it use?",
+      a: "Mochi uses a hybrid architecture: a local model handles everyday interactions (chat, idle behaviors, basic responses), while frontier-class models (Claude/GPT-level) power the deeper moments — weekly letters, creative writing, long-term memory synthesis. You choose how much cloud involvement you want.",
+    },
+    {
+      q: "Is there a monthly subscription?",
+      a: "No. $399 is the full price. No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required.",
+    },
+    {
+      q: "How is this different from a Tamagotchi?",
+      a: "Tamagotchi runs on pre-programmed scripts. Mochi runs on frontier AI. Your pets remember conversations from months ago, create original artwork, write personalized letters, and develop unique relationships with each other. No two Mochi devices will ever behave the same way.",
+    },
+    {
+      q: "Can I interact with the pets, or just watch?",
+      a: "Both. The default mode is passive — pets live their lives and you observe. But you can press OK anytime to 'Ask the Crew' a question, and all three will respond from their unique personality angles. You can also leave notes, give gifts, and influence their world.",
+    },
+    {
+      q: "When does it ship?",
+      a: "We're targeting a Kickstarter launch in Q4 2026, with first units shipping Q1 2027. Join the waitlist to lock in early-bird pricing and get first access.",
+    },
+  ];
+
+  return (
+    <section className="newspaper-rule">
+      <div className="container py-16 lg:py-24">
+        <FadeIn>
+          <div className="mb-12">
+            <p className="editorial-label text-[oklch(0.45_0.2_25)] mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-[oklch(0.45_0.2_25)] rounded-full inline-block" />
+              FAQ
+            </p>
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-900 leading-[1.1]">
+              Questions you're probably asking.
+            </h2>
+          </div>
+        </FadeIn>
+
+        <div className="max-w-3xl">
+          {faqs.map((faq, i) => (
+            <FadeIn key={i} delay={i * 0.03}>
+              <div className="border-b-2 border-foreground/15">
+                <button
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  className="w-full text-left py-5 sm:py-6 flex items-start justify-between gap-4 group"
+                >
+                  <span className="flex items-start gap-3">
+                    <span className="editorial-label text-muted-foreground mt-1 shrink-0">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-[var(--font-display)] text-base sm:text-lg font-700 group-hover:text-[oklch(0.45_0.2_25)] transition-colors">
+                      {faq.q}
+                    </span>
+                  </span>
+                  <span className="font-[var(--font-mono)] text-xl shrink-0 mt-0.5 text-muted-foreground transition-transform duration-200" style={{ transform: openIndex === i ? 'rotate(45deg)' : 'none' }}>
+                    +
+                  </span>
+                </button>
+                <div
+                  className="overflow-hidden transition-all duration-300 ease-in-out"
+                  style={{
+                    maxHeight: openIndex === i ? '300px' : '0',
+                    opacity: openIndex === i ? 1 : 0,
+                  }}
+                >
+                  <p className="pl-9 sm:pl-12 pb-6 text-sm sm:text-base text-foreground/70 leading-relaxed max-w-2xl">
+                    {faq.a}
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SignupSection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -898,6 +991,7 @@ export default function Home() {
       <TrustSection />
       <SpecsSection />
       <DifferenceSection />
+      <FAQSection />
       <SignupSection />
       <Footer />
     </div>
