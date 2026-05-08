@@ -12,12 +12,12 @@ const IMAGES = {
   colorFog: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_fog-NuJfqEERdmYPoWu4duTzbt.webp",
   colorPlum: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_plum-Yqa3ULT6FA5TqPw3jwnzGM.webp",
   // BASE_URL is "/Mochi/" on GitHub Pages and "/" in dev — keeps these paths correct after repo rename / custom domain.
-  uiHome: `${import.meta.env.BASE_URL}manus-storage/ui_home_screen_99fd299b_ea95f94b.png`,
-  uiDaily: `${import.meta.env.BASE_URL}manus-storage/ui_daily_letter_c29847f5_c2830470.png`,
-  uiAsk: `${import.meta.env.BASE_URL}manus-storage/ui_ask_crew_f946734b_c35e7d11.png`,
-  uiWeekly: `${import.meta.env.BASE_URL}manus-storage/ui_weekly_letter_4af41b85_ed77bbec.png`,
-  uiNight: `${import.meta.env.BASE_URL}manus-storage/ui_night_mode_d37da548_3e72808b.png`,
-  uiOtto: `${import.meta.env.BASE_URL}manus-storage/ui_otto_creation_3656c205_b1e09503.png`,
+  uiHome: `${import.meta.env.BASE_URL}manus-storage/ui_home_screen_99fd299b_ea95f94b.jpg`,
+  uiDaily: `${import.meta.env.BASE_URL}manus-storage/ui_daily_letter_c29847f5_c2830470.jpg`,
+  uiAsk: `${import.meta.env.BASE_URL}manus-storage/ui_ask_crew_f946734b_c35e7d11.jpg`,
+  uiWeekly: `${import.meta.env.BASE_URL}manus-storage/ui_weekly_letter_4af41b85_ed77bbec.jpg`,
+  uiNight: `${import.meta.env.BASE_URL}manus-storage/ui_night_mode_d37da548_3e72808b.jpg`,
+  uiOtto: `${import.meta.env.BASE_URL}manus-storage/ui_otto_creation_3656c205_b1e09503.jpg`,
   aiMemory: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_memory-YTYXMJ4ZhZwZGhE7X3ShX4.webp",
   aiCreation: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_creation-BAZwwfWJJgjcK8WHc7H4Kh.webp",
   aiRelationship: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/ai_moment_relationship-CLnxcZzrs9WJMUaMdPXLwe.webp",
@@ -89,11 +89,11 @@ function Header() {
         </div>
       </div>
       <div className="container flex items-center justify-between py-1.5 sm:py-2 border-t border-foreground/20">
-        <span className="editorial-label text-muted-foreground text-[0.55rem] sm:text-xs">A Desktop AI Console / Product Brief</span>
+        <span className="editorial-label text-muted-foreground text-[0.55rem] sm:text-xs">A Desktop AI Console</span>
         <div className="hidden sm:flex gap-6">
-          <span className="editorial-label"><strong>Market</strong> United States</span>
-          <span className="editorial-label"><strong>Stage</strong> Pre-launch</span>
-          <span className="editorial-label"><strong>Date</strong> May 2026</span>
+          <span className="editorial-label"><strong>Ideal for</strong> Solopreneurs</span>
+          <span className="editorial-label"><strong>Made for</strong> Quiet Desks</span>
+          <span className="editorial-label"><strong>Perfect</strong> Gift</span>
         </div>
       </div>
     </header>
@@ -127,6 +127,8 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0.6 }}
                   transition={{ duration: 0.3 }}
+                  fetchPriority="high"
+                  decoding="async"
                 />
               </AnimatePresence>
               <div className="flex justify-between items-center mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-foreground/20">
@@ -148,7 +150,7 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
               </div>
             </div>
             <p className="editorial-label text-muted-foreground mt-2 sm:mt-3 text-center text-[0.6rem] sm:text-xs">
-              $399 · No subscription · Ships Q4 2026
+              $399 · No subscription · Built to last
             </p>
           </FadeIn>
 
@@ -193,7 +195,7 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
                 </div>
               ) : (
                 <div className="border-2 border-foreground/30 bg-background/50 p-4 sm:p-6 max-w-md">
-                  <p className="font-[var(--font-display)] text-lg sm:text-xl font-900 mb-1">You're in. 🎉</p>
+                  <p className="font-[var(--font-display)] text-lg sm:text-xl font-900 mb-1">You're in.</p>
                   <p className="text-foreground/60 text-xs sm:text-sm">We'll email you once — when Mochi is ready.</p>
                 </div>
               )}
@@ -305,6 +307,8 @@ function ExperienceSection() {
                 src={MOMENTS[activeMoment].image}
                 alt={MOMENTS[activeMoment].title}
                 className="w-full rounded-sm"
+                loading="lazy"
+                decoding="async"
               />
               <div className="mt-3 flex items-center justify-between">
                 <span className="font-[var(--font-mono)] text-[0.6rem] text-white/40">{MOMENTS[activeMoment].time} · ACTUAL UI</span>
@@ -362,7 +366,7 @@ function WhatItIsSection() {
           {/* Left: Product angle shot */}
           <FadeIn>
             <div className="editorial-border bg-card p-3">
-              <img src={IMAGES.angle} alt="Mochi on a wooden desk — front and back view showing ventilation grilles" className="w-full" />
+              <img src={IMAGES.angle} alt="Mochi on a wooden desk — front and back view showing ventilation grilles" className="w-full" loading="lazy" decoding="async" />
               <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 02 — Lifestyle & Rear View</p>
             </div>
           </FadeIn>
@@ -457,6 +461,8 @@ function AIShowcaseSection() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
+                  loading="lazy"
+                  decoding="async"
                 />
               </AnimatePresence>
               <div className="mt-3 pt-3 border-t border-white/20">
@@ -553,6 +559,8 @@ function CrewSection() {
                     src={pet.avatar}
                     alt={`${pet.name} the ${pet.species} — pixel art portrait`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-3 left-3">
                     <span className="font-[var(--font-mono)] text-[0.6rem] uppercase tracking-wider bg-background/90 px-2 py-1 border border-foreground/20">
@@ -644,7 +652,8 @@ function ScreensSection() {
                 src={screens[active].src}
                 alt={screens[active].label}
                 className="w-full aspect-[4/3] object-cover"
-                loading="eager"
+                loading="lazy"
+                decoding="async"
               />
               <div className="flex justify-between items-center mt-2 px-1">
                 <span className="editorial-label text-muted-foreground">Fig. {screens[active].fig}</span>
@@ -664,7 +673,7 @@ function ScreensSection() {
                       : "border-foreground/20 hover:border-foreground/60"
                   }`}
                 >
-                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1 bg-[#1a1a1a]" loading="eager" />
+                  <img src={screen.src} alt={screen.label} className="w-full aspect-[4/3] object-cover mb-1 bg-[#1a1a1a]" loading="lazy" decoding="async" />
                   <span className="editorial-label text-[0.6rem]">{screen.label}</span>
                 </button>
               ))}
@@ -699,13 +708,13 @@ function TrustSection() {
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
             {[
-              { icon: "🚫🎤", title: "No Microphone", desc: "Can't listen. Hardware absent." },
-              { icon: "🚫📷", title: "No Camera", desc: "Can't watch. Hardware absent." },
-              { icon: "🔴", title: "Kill Switch", desc: "Physical toggle. Cuts WiFi + BT instantly." },
-              { icon: "💾", title: "Local-first", desc: "Your data stays on your device." },
+              { num: "01", title: "No Microphone", desc: "Can't listen. Hardware absent." },
+              { num: "02", title: "No Camera", desc: "Can't watch. Hardware absent." },
+              { num: "03", title: "Kill Switch", desc: "Physical toggle. Cuts WiFi + BT instantly." },
+              { num: "04", title: "Local-first", desc: "Your data stays on your device." },
             ].map((item, i) => (
               <div key={i} className="editorial-border p-6 -mt-[3px] -ml-[3px] text-center">
-                <span className="text-2xl block mb-3">{item.icon}</span>
+                <span className="font-[var(--font-display)] text-3xl font-900 block mb-3 text-[oklch(0.45_0.2_25)]">{item.num}</span>
                 <p className="font-[var(--font-mono)] text-xs font-bold uppercase mb-1">{item.title}</p>
                 <p className="font-[var(--font-mono)] text-[0.65rem] text-muted-foreground">{item.desc}</p>
               </div>
@@ -759,7 +768,7 @@ function SpecsSection() {
 
           <FadeIn delay={0.15}>
             <div className="editorial-border bg-card p-3">
-              <img src={IMAGES.detail} alt="Mochi back panel — ventilation, USB-C ports, and kill switch" className="w-full" />
+              <img src={IMAGES.detail} alt="Mochi back panel — ventilation, USB-C ports, and kill switch" className="w-full" loading="lazy" decoding="async" />
               <p className="editorial-label text-muted-foreground mt-2 px-1">Fig. 09 — Back Panel & Ports</p>
             </div>
           </FadeIn>
@@ -851,7 +860,7 @@ function FAQSection() {
     },
     {
       q: "When does it ship?",
-      a: "We're targeting a Kickstarter launch in Q4 2026, with first units shipping Q1 2027. Join the waitlist to lock in early-bird pricing and get first access.",
+      a: "Mochi is in pre-launch development. Join the waitlist to lock in early-bird pricing and be the first to know when the Kickstarter goes live and ship dates are confirmed.",
     },
   ];
 
@@ -930,7 +939,7 @@ function SignupSection() {
               Be first to meet the crew.
             </h2>
             <p className="text-background/60 text-lg mb-4 max-w-lg">
-              Join the waitlist for early-bird pricing ($399) and first access when Mochi launches on Kickstarter, Q4 2026.
+              Join the waitlist for early-bird pricing ($399) and first access when Mochi launches on Kickstarter.
             </p>
 
             {/* Urgency: spots remaining */}
@@ -960,7 +969,7 @@ function SignupSection() {
               </form>
             ) : (
               <div className="border-2 border-background/30 p-8 max-w-lg">
-                <p className="font-[var(--font-display)] text-2xl font-900 mb-2">You're in. 🎉</p>
+                <p className="font-[var(--font-display)] text-2xl font-900 mb-2">You're in.</p>
                 <p className="text-background/60">We'll email you once — when Mochi is ready. The crew is excited to meet you.</p>
               </div>
             )}
@@ -984,7 +993,7 @@ function Footer() {
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
             <span className="editorial-label text-muted-foreground">A tiny console for AI pets that actually live with you.</span>
-            <span className="editorial-label text-muted-foreground">Q4 2026</span>
+            <span className="editorial-label text-muted-foreground">No subscription, ever.</span>
           </div>
         </div>
       </div>
