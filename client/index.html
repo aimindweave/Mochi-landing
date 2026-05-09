@@ -7,6 +7,24 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
+    <!-- Google Consent Mode v2 — default to denied; flip via cookie banner -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function(){
+        var saved = null;
+        try { saved = localStorage.getItem('mochi_cookie_consent'); } catch(e){}
+        var granted = saved === 'granted';
+        gtag('consent', 'default', {
+          'ad_storage': granted ? 'granted' : 'denied',
+          'analytics_storage': granted ? 'granted' : 'denied',
+          'ad_user_data': granted ? 'granted' : 'denied',
+          'ad_personalization': granted ? 'granted' : 'denied',
+          'wait_for_update': 500
+        });
+      })();
+    </script>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -18,8 +36,6 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0G6L1Q4SRC"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-0G6L1Q4SRC');
     </script>
@@ -116,7 +132,7 @@
           { "@type": "Question", "name": "Can my pets die?", "acceptedAnswer": { "@type": "Answer", "text": "No. Mochi pets don't die, get sick, or punish you for neglecting them. They're always there when you come back. Their personalities evolve and relationships deepen over time, but there's no anxiety mechanic. This is companionship, not obligation." } },
           { "@type": "Question", "name": "Where is my data stored?", "acceptedAnswer": { "@type": "Answer", "text": "All conversation history, memories, and pet personality data are stored locally on the device. Nothing is sent to our servers unless you explicitly opt into cloud-enhanced features. The physical kill switch cuts all connectivity instantly if you ever want complete isolation." } },
           { "@type": "Question", "name": "What AI models does it use?", "acceptedAnswer": { "@type": "Answer", "text": "Mochi uses a hybrid architecture: a local model handles everyday interactions (chat, idle behaviors, basic responses), while frontier-class models (Claude/GPT-level) power the deeper moments — weekly letters, creative writing, long-term memory synthesis. You choose how much cloud involvement you want." } },
-          { "@type": "Question", "name": "Is there a monthly subscription?", "acceptedAnswer": { "@type": "Answer", "text": "No. $399 is the full price. No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required." } },
+          { "@type": "Question", "name": "Is there a monthly subscription?", "acceptedAnswer": { "@type": "Answer", "text": "No. $399 is the expected full price at launch (subject to change). No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required." } },
           { "@type": "Question", "name": "How is this different from a Tamagotchi?", "acceptedAnswer": { "@type": "Answer", "text": "Tamagotchi runs on pre-programmed scripts. Mochi runs on frontier AI. Your pets remember conversations from months ago, create original artwork, write personalized letters, and develop unique relationships with each other. No two Mochi devices will ever behave the same way." } },
           { "@type": "Question", "name": "Can I interact with the pets, or just watch?", "acceptedAnswer": { "@type": "Answer", "text": "Both. The default mode is passive — pets live their lives and you observe. But you can press OK anytime to 'Ask the Crew' a question, and all three will respond from their unique personality angles. You can also leave notes, give gifts, and influence their world." } },
           { "@type": "Question", "name": "When does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Mochi is in pre-launch development. Join the waitlist to lock in early-bird pricing and be the first to know when the Kickstarter goes live and ship dates are confirmed." } }
@@ -135,8 +151,17 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1010088628028812');
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent', { content_name: location.pathname, content_category: 'page_view' });
+    (function(){
+      var saved = null;
+      try { saved = localStorage.getItem('mochi_cookie_consent'); } catch(e){}
+      if (saved === 'granted') {
+        fbq('consent', 'grant');
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent', { content_name: location.pathname, content_category: 'page_view' });
+      } else {
+        fbq('consent', 'revoke');
+      }
+    })();
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1010088628028812&ev=PageView&noscript=1"
@@ -158,6 +183,46 @@
       </noscript>
     </div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" hidden role="dialog" aria-live="polite" aria-label="Cookie consent" style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f1a14;color:#faf6ee;padding:16px 24px;font-family:'Inter',system-ui,sans-serif;font-size:13px;box-shadow:0 -2px 24px rgba(0,0,0,0.18);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+      <p style="margin:0;flex:1 1 280px;line-height:1.5;">We use cookies for analytics and to measure ad performance. <a href="/privacy.html" style="color:#faf6ee;text-decoration:underline;">Learn more</a>.</p>
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button id="cookie-decline" type="button" style="background:transparent;color:#faf6ee;border:1px solid rgba(250,246,238,0.4);padding:8px 14px;font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;letter-spacing:0.05em;">Decline</button>
+        <button id="cookie-accept" type="button" style="background:#faf6ee;color:#1f1a14;border:0;padding:8px 14px;font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;letter-spacing:0.05em;font-weight:700;">Accept</button>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var KEY = 'mochi_cookie_consent';
+      var banner = document.getElementById('cookie-consent');
+      if (!banner) return;
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch(e){}
+      if (!saved) { banner.hidden = false; }
+      function set(decision){
+        try { localStorage.setItem(KEY, decision); } catch(e){}
+        banner.hidden = true;
+        if (decision === 'granted') {
+          if (typeof gtag === 'function') {
+            gtag('consent', 'update', {
+              'ad_storage': 'granted',
+              'analytics_storage': 'granted',
+              'ad_user_data': 'granted',
+              'ad_personalization': 'granted'
+            });
+          }
+          if (typeof fbq === 'function') {
+            fbq('consent', 'grant');
+            fbq('track', 'PageView');
+            fbq('track', 'ViewContent', { content_name: location.pathname, content_category: 'page_view' });
+          }
+        }
+      }
+      document.getElementById('cookie-accept').addEventListener('click', function(){ set('granted'); });
+      document.getElementById('cookie-decline').addEventListener('click', function(){ set('denied'); });
+    })();
+    </script>
 
     <!-- Lead Tracker: session, UTM, page_view, page_dwell, waitlist API -->
     <script>

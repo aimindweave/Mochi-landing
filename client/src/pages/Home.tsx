@@ -49,18 +49,6 @@ const COLORS = [
   { id: "plum", name: "Plum", hex: "#8A7E96", img: "colorPlum" as const },
 ];
 
-// Simulated waitlist count — starts at 847 and slowly increments
-function useWaitlistCount() {
-  const [count, setCount] = useState(847);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((c) => c + Math.floor(Math.random() * 2));
-    }, 30000); // increment every ~30s
-    return () => clearInterval(interval);
-  }, []);
-  return count;
-}
-
 function FadeIn({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
@@ -121,7 +109,6 @@ function Header() {
 function HeroSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (i: number) => void }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const waitlistCount = useWaitlistCount();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,7 +157,7 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
               </div>
             </div>
             <p className="editorial-label text-muted-foreground mt-2 sm:mt-3 text-center text-[0.6rem] sm:text-xs">
-              $399 · No subscription · Built to last
+              Expected $399 · No subscription · Built to last
             </p>
           </FadeIn>
 
@@ -210,10 +197,10 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
                   </form>
                   <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 sm:mt-4">
                     <span className="editorial-label text-foreground/50 text-[0.6rem] sm:text-xs">
-                      <strong className="text-foreground">{waitlistCount.toLocaleString()}</strong> people already waiting
+                      Pre-launch · Reserve your spot — no charge until ship
                     </span>
                     <span className="editorial-label text-[oklch(0.45_0.2_25)] text-[0.6rem] sm:text-xs">
-                      Early bird: $399
+                      Early bird: Expected $399
                     </span>
                   </div>
                 </div>
@@ -411,7 +398,7 @@ function WhatItIsSection() {
               <div className="grid grid-cols-2 gap-4">
                 {[
                   ["No mic", "No camera"],
-                  ["No subscription", "$399 one-time"],
+                  ["No subscription", "Expected $399 one-time"],
                   ["Frontier AI", "Always on"],
                   ["Kill switch", "Your data stays local"],
                 ].map(([a, b], i) => (
@@ -830,7 +817,7 @@ function DifferenceSection() {
                   ["Companions", "3 pets with evolving relationships", "Single AI character"],
                   ["Privacy", "No mic. No camera. Physical kill switch.", "Always listening"],
                   ["AI Quality", "Frontier models (Claude/GPT-class)", "Mid-tier for cost savings"],
-                  ["Pricing", "$399 one-time. No subscription.", "$15–30/month forever"],
+                  ["Pricing", "Expected $399 one-time. No subscription.", "$15–30/month forever"],
                   ["Output", "Poems, drawings, stories, letters", "Chat responses only"],
                   ["Form Factor", "Desktop presence, always on", "Phone app or portable gadget"],
                   ["Memory", "Remembers you for months/years", "Context resets each session"],
@@ -872,7 +859,7 @@ function FAQSection() {
     },
     {
       q: "Is there a monthly subscription?",
-      a: "No. $399 is the full price. No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required.",
+      a: "No. $399 is the expected full price at launch (subject to change). No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required.",
     },
     {
       q: "How is this different from a Tamagotchi?",
@@ -946,7 +933,6 @@ function FAQSection() {
 function SignupSection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const waitlistCount = useWaitlistCount();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -968,11 +954,11 @@ function SignupSection() {
               Join the waitlist for early-bird pricing ($399) and first access when Mochi launches on Kickstarter.
             </p>
 
-            {/* Urgency: spots remaining */}
+            {/* Pre-launch disclosure */}
             <div className="flex items-center gap-3 mb-8">
               <span className="inline-block w-2 h-2 bg-[#7EDCB5] rounded-full animate-pulse" />
               <span className="font-[var(--font-mono)] text-sm text-background/70">
-                <strong className="text-background">{(1000 - waitlistCount % 1000).toLocaleString()}</strong> early-bird spots remaining out of 1,000
+                Pre-launch · Early-bird pricing locked in for waitlist signups
               </span>
             </div>
 
@@ -1025,6 +1011,15 @@ function Footer() {
             <span className="editorial-label text-muted-foreground">A tiny console for AI pets that actually live with you.</span>
             <span className="editorial-label text-muted-foreground">No subscription, ever.</span>
           </div>
+        </div>
+        <p className="editorial-label text-muted-foreground/70 text-[0.55rem] sm:text-[0.6rem] italic mt-4 max-w-2xl">
+          Mochi is in pre-launch development. Pricing, features, and ship dates may evolve before launch. Joining the waitlist places no charge and confirms no purchase.
+        </p>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+          <a href="/privacy" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Privacy</a>
+          <a href="/terms" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Terms</a>
+          <a href="mailto:shayla.suen@gmail.com" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+          <span className="editorial-label text-muted-foreground/50">© Mochi {new Date().getFullYear()}</span>
         </div>
       </div>
     </footer>
