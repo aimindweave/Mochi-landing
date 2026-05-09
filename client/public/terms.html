@@ -4,6 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Google Consent Mode v2 — read decision from main page's banner -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function(){
+        var saved = null;
+        try { saved = localStorage.getItem('mochi_cookie_consent'); } catch(e){}
+        var granted = saved === 'granted';
+        gtag('consent', 'default', {
+          'ad_storage': granted ? 'granted' : 'denied',
+          'analytics_storage': granted ? 'granted' : 'denied',
+          'ad_user_data': granted ? 'granted' : 'denied',
+          'ad_personalization': granted ? 'granted' : 'denied',
+          'wait_for_update': 500
+        });
+      })();
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N73F9MGJ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0G6L1Q4SRC"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-0G6L1Q4SRC');
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1010088628028812');
+    (function(){
+      var saved = null;
+      try { saved = localStorage.getItem('mochi_cookie_consent'); } catch(e){}
+      if (saved === 'granted') {
+        fbq('consent', 'grant');
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent', { content_name: location.pathname, content_category: 'page_view' });
+      } else {
+        fbq('consent', 'revoke');
+      }
+    })();
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1010088628028812&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
     <title>Terms of Service — Mochi</title>
     <meta name="description" content="The terms governing your use of the Mochi website and waitlist." />
     <link rel="canonical" href="https://mochi.prizmox.com/terms" />
@@ -22,6 +83,11 @@
     </style>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N73F9MGJ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <main class="container">
       <p class="meta">Mochi · Terms of Service</p>
       <h1>Terms of Service</h1>
@@ -80,5 +146,31 @@
 
       <a class="back" href="/">← Back to Mochi</a>
     </main>
+
+    <!-- Lead Tracker Variant A: session, UTM, page_view, page_dwell (no waitlist) -->
+    <script>
+    (function(){
+      var API='https://immich-photo-box-waitlist.bytedev2022.workers.dev/api/events',SITE='mochi';
+      var sid=sessionStorage.getItem('_tk_sid');
+      if(!sid){sid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);sessionStorage.setItem('_tk_sid',sid)}
+      if(!sessionStorage.getItem('_tk_utm')){var sp=new URLSearchParams(location.search),u={};
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){var v=sp.get(k);if(v)u[k]=v});
+      if(Object.keys(u).length)sessionStorage.setItem('_tk_utm',JSON.stringify(u))}
+      var utm=JSON.parse(sessionStorage.getItem('_tk_utm')||'{}');
+      function send(evt){evt.site=SITE;evt.session_id=sid;evt.referrer=document.referrer||'';Object.assign(evt,utm);
+      var p=JSON.stringify(evt);navigator.sendBeacon?navigator.sendBeacon(API,new Blob([p],{type:'text/plain'})):
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:p,keepalive:true})}
+      send({event:'page_view',page:location.pathname});
+      var t0=Date.now(),pg=JSON.parse(sessionStorage.getItem('_tk_pages')||'[]');
+      pg.push({p:location.pathname,t:t0});sessionStorage.setItem('_tk_pages',JSON.stringify(pg));
+      var fired=false;function fireDwell(){if(fired)return;fired=true;
+      var sec=Math.round((Date.now()-t0)/1000),pg=JSON.parse(sessionStorage.getItem('_tk_pages')||'[]');
+      if(pg.length){pg[pg.length-1].d=sec}sessionStorage.setItem('_tk_pages',JSON.stringify(pg));
+      send({event:'page_dwell',page:location.pathname,dwell_seconds:sec});
+      if(typeof fbq==='function')fbq('trackCustom','PageDwell',{content_name:location.pathname,dwell_seconds:sec})}
+      document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')fireDwell()});
+      window.addEventListener('beforeunload',fireDwell);
+    })();
+    </script>
   </body>
 </html>
