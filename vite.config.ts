@@ -203,7 +203,13 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+// Manus dev-only plugins emit a ~370 KB inline `<script id="manus-runtime">`
+// and per-element `data-loc` JSX annotations. Useful in the Manus dev IDE,
+// pure dead weight on Cloudflare Pages / GitHub Pages — gate them out of prod.
+const isProd = process.env.NODE_ENV === "production";
+const devOnlyManusPlugins = isProd ? [] : [jsxLocPlugin(), vitePluginManusRuntime()];
+
+const plugins = [react(), tailwindcss(), ...devOnlyManusPlugins, vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 // Resolve GitHub Pages base from the repo name in GITHUB_REPOSITORY ("owner/repo"),
 // so renaming the repo doesn't require touching this config.

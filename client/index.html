@@ -28,7 +28,9 @@
     <meta name="robots" content="index, follow" />
 
     <title>Mochi — A Tiny Console for AI Pets That Actually Live With You</title>
-    <meta name="description" content="Mochi is a palm-sized desktop console with three AI pets that remember you, create poems and drawings, and quietly live on your desk. No microphone. No camera. No subscription." />
+    <meta name="description" content="A palm-sized desktop console with three AI pets that remember you, create poems and drawings, and quietly live on your desk. No mic. No camera. No subscription." />
+    <meta name="apple-mobile-web-app-title" content="Mochi" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <!-- Performance: preconnect/dns-prefetch to image CDN + font CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,6 +63,29 @@
     <meta name="twitter:title" content="Mochi — A Tiny Console for AI Pets That Actually Live With You" />
     <meta name="twitter:description" content="A palm-sized desktop console with three AI pets that remember you, create poems and drawings, and quietly live on your desk. No mic. No camera. No subscription." />
     <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_oat-E8B6Yp5UBTNMmDzMEhstXL.webp" />
+    <meta name="twitter:image:alt" content="Mochi — a retro palm-sized desktop console in oat color, with a 5-inch screen showing three pixel-art AI pets." />
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Mochi",
+        "url": "https://mochi.prizmox.com/",
+        "logo": "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_logo_v2-c3MdjyABhuZhPk2nShaCcb.png"
+      }
+    </script>
+
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Mochi",
+        "url": "https://mochi.prizmox.com/",
+        "inLanguage": "en"
+      }
+    </script>
 
     <!-- Structured data: Product -->
     <script type="application/ld+json">
@@ -75,8 +100,27 @@
           "@type": "Offer",
           "price": "399",
           "priceCurrency": "USD",
-          "availability": "https://schema.org/PreOrder"
+          "availability": "https://schema.org/PreOrder",
+          "url": "https://mochi.prizmox.com/#signup"
         }
+      }
+    </script>
+
+    <!-- Structured data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Does Mochi need internet to work?", "acceptedAnswer": { "@type": "Answer", "text": "Mochi runs locally by default — your pets live and interact even without WiFi. Internet is only needed for optional cloud-enhanced moments (like Otto's detailed paintings or Cap's long-form letters). You can toggle between fully-offline and hybrid mode anytime." } },
+          { "@type": "Question", "name": "Can my pets die?", "acceptedAnswer": { "@type": "Answer", "text": "No. Mochi pets don't die, get sick, or punish you for neglecting them. They're always there when you come back. Their personalities evolve and relationships deepen over time, but there's no anxiety mechanic. This is companionship, not obligation." } },
+          { "@type": "Question", "name": "Where is my data stored?", "acceptedAnswer": { "@type": "Answer", "text": "All conversation history, memories, and pet personality data are stored locally on the device. Nothing is sent to our servers unless you explicitly opt into cloud-enhanced features. The physical kill switch cuts all connectivity instantly if you ever want complete isolation." } },
+          { "@type": "Question", "name": "What AI models does it use?", "acceptedAnswer": { "@type": "Answer", "text": "Mochi uses a hybrid architecture: a local model handles everyday interactions (chat, idle behaviors, basic responses), while frontier-class models (Claude/GPT-level) power the deeper moments — weekly letters, creative writing, long-term memory synthesis. You choose how much cloud involvement you want." } },
+          { "@type": "Question", "name": "Is there a monthly subscription?", "acceptedAnswer": { "@type": "Answer", "text": "No. $399 is the full price. No subscription, no in-app purchases, no 'premium tier' unlock. The local AI runs forever at zero cost. Cloud-enhanced features include a generous free tier; heavy users can optionally top up, but it's never required." } },
+          { "@type": "Question", "name": "How is this different from a Tamagotchi?", "acceptedAnswer": { "@type": "Answer", "text": "Tamagotchi runs on pre-programmed scripts. Mochi runs on frontier AI. Your pets remember conversations from months ago, create original artwork, write personalized letters, and develop unique relationships with each other. No two Mochi devices will ever behave the same way." } },
+          { "@type": "Question", "name": "Can I interact with the pets, or just watch?", "acceptedAnswer": { "@type": "Answer", "text": "Both. The default mode is passive — pets live their lives and you observe. But you can press OK anytime to 'Ask the Crew' a question, and all three will respond from their unique personality angles. You can also leave notes, give gifts, and influence their world." } },
+          { "@type": "Question", "name": "When does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Mochi is in pre-launch development. Join the waitlist to lock in early-bird pricing and be the first to know when the Kickstarter goes live and ship dates are confirmed." } }
+        ]
       }
     </script>
 
@@ -106,12 +150,14 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div id="root"></div>
+    <div id="root">
+      <noscript>
+        <h1>Mochi — A Tiny Console for AI Pets That Actually Live With You</h1>
+        <p>A palm-sized desktop console with three AI pets that remember you, create poems and drawings, and quietly live on your desk. No microphone. No camera. No subscription. $399 one-time.</p>
+        <p>Mochi requires JavaScript to view the full site. Please enable JavaScript or visit <a href="https://mochi.prizmox.com/">https://mochi.prizmox.com/</a> in a modern browser.</p>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
 
     <!-- Lead Tracker: session, UTM, page_view, page_dwell, waitlist API -->
     <script>

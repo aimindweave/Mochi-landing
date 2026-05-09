@@ -188,9 +188,13 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
               {/* Inline signup form */}
               {!submitted ? (
                 <div>
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md">
+                  <form onSubmit={handleSubmit} data-conversion="waitlist_signup" data-form-location="hero" className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md">
                     <input
                       type="email"
+                      name="email"
+                      autoComplete="email"
+                      data-conversion="email"
+                      aria-label="Email address"
                       placeholder="your@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -973,9 +977,13 @@ function SignupSection() {
             </div>
 
             {!submitted ? (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg">
+              <form onSubmit={handleSubmit} data-conversion="waitlist_signup" data-form-location="signup_section" className="flex flex-col sm:flex-row gap-3 max-w-lg">
                 <input
                   type="email"
+                  name="email"
+                  autoComplete="email"
+                  data-conversion="email"
+                  aria-label="Email address"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
