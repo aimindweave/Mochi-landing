@@ -1018,7 +1018,6 @@ function Footer() {
         <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
           <a href="/privacy" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Privacy</a>
           <a href="/terms" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Terms</a>
-          <a href="mailto:shayla.suen@gmail.com" className="editorial-label text-muted-foreground hover:text-foreground transition-colors">Contact</a>
           <span className="editorial-label text-muted-foreground/50">© Mochi {new Date().getFullYear()}</span>
         </div>
       </div>
