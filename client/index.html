@@ -6,6 +6,24 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N73F9MGJ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0G6L1Q4SRC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0G6L1Q4SRC');
+    </script>
+
     <meta name="theme-color" content="#C8BDA8" />
     <meta name="robots" content="index, follow" />
 
@@ -61,15 +79,136 @@
         }
       }
     </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1010088628028812');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: location.pathname, content_category: 'page_view' });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1010088628028812&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N73F9MGJ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script
       defer
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
       data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+
+    <!-- Lead Tracker: session, UTM, page_view, page_dwell, waitlist API -->
+    <script>
+    (function(){
+      var API_BASE = 'https://immich-photo-box-waitlist.bytedev2022.workers.dev/api';
+      var SITE = 'mochi';
+      var VARIANT = 'v1';
+
+      /* Session ID */
+      var sid = sessionStorage.getItem('_tk_sid');
+      if (!sid) { sid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('_tk_sid', sid); }
+
+      /* UTM Capture */
+      var utm = JSON.parse(sessionStorage.getItem('_tk_utm') || '{}');
+      if (!sessionStorage.getItem('_tk_utm')) {
+        var sp = new URLSearchParams(location.search);
+        ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){
+          var v = sp.get(k); if(v) utm[k] = v;
+        });
+        if (Object.keys(utm).length) sessionStorage.setItem('_tk_utm', JSON.stringify(utm));
+      }
+
+      /* Send Event */
+      function sendEvent(evt) {
+        evt.site = SITE;
+        evt.session_id = sid;
+        evt.referrer = document.referrer || '';
+        Object.assign(evt, utm);
+        var payload = JSON.stringify(evt);
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(API_BASE + '/events', new Blob([payload], { type: 'text/plain' }));
+        } else {
+          fetch(API_BASE + '/events', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+        }
+      }
+
+      sendEvent({ event: 'page_view', page: location.pathname });
+
+      /* Dwell */
+      var pageEnter = Date.now();
+      var pages = JSON.parse(sessionStorage.getItem('_tk_pages') || '[]');
+      pages.push({ p: location.pathname, t: pageEnter });
+      sessionStorage.setItem('_tk_pages', JSON.stringify(pages));
+
+      var dwellFired = false;
+      function fireDwell() {
+        if (dwellFired) return;
+        dwellFired = true;
+        var sec = Math.round((Date.now() - pageEnter) / 1000);
+        var pg = JSON.parse(sessionStorage.getItem('_tk_pages') || '[]');
+        if (pg.length) { pg[pg.length - 1].d = sec; }
+        sessionStorage.setItem('_tk_pages', JSON.stringify(pg));
+        sendEvent({ event: 'page_dwell', page: location.pathname, dwell_seconds: sec });
+        if (typeof fbq === 'function') fbq('trackCustom', 'PageDwell', { content_name: location.pathname, dwell_seconds: sec });
+      }
+      document.addEventListener('visibilitychange', function() { if (document.visibilityState === 'hidden') fireDwell(); });
+      window.addEventListener('beforeunload', fireDwell);
+
+      /* Browsing data helpers */
+      function getBrowsingData() {
+        var pg = JSON.parse(sessionStorage.getItem('_tk_pages') || '[]');
+        if (pg.length) { pg[pg.length - 1].d = Math.round((Date.now() - pg[pg.length - 1].t) / 1000); }
+        return pg.map(function(e) { return e.p + ':' + ((e.d || 0)) + 's'; }).join('|').slice(0, 100);
+      }
+      function getUtmCompact() {
+        var u = JSON.parse(sessionStorage.getItem('_tk_utm') || '{}');
+        var parts = [];
+        if(u.utm_source) parts.push('src:' + u.utm_source);
+        if(u.utm_medium) parts.push('med:' + u.utm_medium);
+        if(u.utm_campaign) parts.push('cam:' + u.utm_campaign);
+        if(u.utm_content) parts.push('con:' + u.utm_content);
+        if(u.utm_term) parts.push('trm:' + u.utm_term);
+        return parts.join('|').slice(0, 100);
+      }
+
+      /* Public submitters used by React form handlers */
+      window.__postWaitlist = function(email) {
+        return fetch(API_BASE + '/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            site: SITE,
+            variant: VARIANT,
+            use_case: getUtmCompact(),
+            current_solution: getBrowsingData()
+          })
+        }).then(function(r) { return r.json(); });
+      };
+
+      window.__fireLeadPixel = function() {
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', Object.assign({ content_name: SITE + '_reserve', value: 0, currency: 'USD' }, utm));
+        }
+      };
+    })();
+    </script>
   </body>
 
 </html>

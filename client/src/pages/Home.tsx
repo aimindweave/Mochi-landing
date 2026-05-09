@@ -1,6 +1,24 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
+declare global {
+  interface Window {
+    __postWaitlist?: (email: string) => Promise<{ ok?: boolean; message?: string; error?: string }>;
+    __fireLeadPixel?: () => void;
+  }
+}
+
+function submitWaitlist(email: string) {
+  if (typeof window === "undefined" || typeof window.__postWaitlist !== "function") return;
+  window.__postWaitlist(email)
+    .then((data) => {
+      if (data?.ok && typeof window.__fireLeadPixel === "function") {
+        window.__fireLeadPixel();
+      }
+    })
+    .catch(() => {});
+}
+
 const IMAGES = {
   front: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_oat-E8B6Yp5UBTNMmDzMEhstXL.webp",
   angle: "https://d2xsxph8kpxj0f.cloudfront.net/310519663404962790/gypL6F8gkz7wnQxBBc7bf3/mochi_clean_sage-oVUiSE7PHNZy2Jey9PBSE3.webp",
@@ -107,7 +125,9 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+    setSubmitted(true);
+    submitWaitlist(email);
   };
 
   return (
@@ -926,7 +946,9 @@ function SignupSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+    setSubmitted(true);
+    submitWaitlist(email);
   };
 
   return (
